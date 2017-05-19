@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+  <include
+      android:id="@+id/toolbar"
+      layout="@layout/toolbar" />
+  <TextView
+      android:text="Calories:"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/textView1"
+      android:textSize="30.0dp" />
+  <TextView
+      android:text="0"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/caloriestxt"
+      android:textSize="100.0dp"
+      android:textStyle="bold"
+      android:typeface="normal"
+      android:textColor="#FF4000"
+      android:layout_gravity="center_horizontal" />
+  <LinearLayout
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:gravity="center|bottom"
+      android:orientation="horizontal">
+    <Button
+      android:layout_weight="2"
+      android:text="Choose food"
+      android:layout_width="wrap_content"
+      android:layout_height="fill_parent"
+      android:id="@+id/gridbutton" />
+    <Button
+      android:layout_weight="1"
+      android:text="Add manually"
+      android:layout_width="wrap_content"
+      android:layout_height="fill_parent"
+      android:id="@+id/manualbutton" />
+    <Button
+        android:layout_weight="1"
+        android:text="Food log"
+      android:layout_width="wrap_content"
+      android:layout_height="fill_parent"
+        android:id="@+id/logbutton" />
+    <Button
+      android:layout_weight="1"
+      android:text="Daily view"
+      android:layout_width="wrap_content"
+      android:layout_height="fill_parent"
+      android:id="@+id/dailyviewbutton" />
+    <Button
+        android:text="Save and clear data"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:id="@+id/clearbutton"
+        android:layout_weight="1"/>
+  </LinearLayout>
+</LinearLayout>
