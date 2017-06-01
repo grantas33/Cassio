@@ -5,7 +5,7 @@
     <SdkVersion>23</SdkVersion>
   </Device>
   <Device id="fb1c9158">
-    <ResultingAbi>armeabi-v7a</ResultingAbi>
+    <ResultingAbi></ResultingAbi>
     <SdkVersion>25</SdkVersion>
   </Device>
 </Devices>

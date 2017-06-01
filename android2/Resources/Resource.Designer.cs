@@ -126,23 +126,23 @@ namespace android2
 			// aapt resource value: 0x7f060002
 			public const int alerttext2 = 2131099650;
 			
-			// aapt resource value: 0x7f06000a
-			public const int caloriestxt = 2131099658;
+			// aapt resource value: 0x7f06000b
+			public const int caloriestxt = 2131099659;
 			
-			// aapt resource value: 0x7f06000f
-			public const int clearbutton = 2131099663;
+			// aapt resource value: 0x7f060010
+			public const int clearbutton = 2131099664;
 			
 			// aapt resource value: 0x7f060005
 			public const int clearfinalbutton = 2131099653;
 			
-			// aapt resource value: 0x7f06000e
-			public const int dailyviewbutton = 2131099662;
+			// aapt resource value: 0x7f06000f
+			public const int dailyviewbutton = 2131099663;
 			
-			// aapt resource value: 0x7f06000b
-			public const int gridbutton = 2131099659;
+			// aapt resource value: 0x7f06000c
+			public const int gridbutton = 2131099660;
 			
-			// aapt resource value: 0x7f060010
-			public const int gridview = 2131099664;
+			// aapt resource value: 0x7f060011
+			public const int gridview = 2131099665;
 			
 			// aapt resource value: 0x7f060003
 			public const int inputnewcal = 2131099651;
@@ -153,17 +153,20 @@ namespace android2
 			// aapt resource value: 0x7f060006
 			public const int listfoodlog = 2131099654;
 			
-			// aapt resource value: 0x7f060008
-			public const int listviewmyfoods = 2131099656;
+			// aapt resource value: 0x7f060009
+			public const int listviewmyfoods = 2131099657;
+			
+			// aapt resource value: 0x7f06000e
+			public const int logbutton = 2131099662;
 			
 			// aapt resource value: 0x7f06000d
-			public const int logbutton = 2131099661;
+			public const int manualbutton = 2131099661;
 			
-			// aapt resource value: 0x7f06000c
-			public const int manualbutton = 2131099660;
+			// aapt resource value: 0x7f060008
+			public const int searchviewmyfoods = 2131099656;
 			
-			// aapt resource value: 0x7f060009
-			public const int textView1 = 2131099657;
+			// aapt resource value: 0x7f06000a
+			public const int textView1 = 2131099658;
 			
 			// aapt resource value: 0x7f060004
 			public const int toolbar = 2131099652;
@@ -171,8 +174,8 @@ namespace android2
 			// aapt resource value: 0x7f060007
 			public const int undolastbutton = 2131099655;
 			
-			// aapt resource value: 0x7f060011
-			public const int viewpager = 2131099665;
+			// aapt resource value: 0x7f060012
+			public const int viewpager = 2131099666;
 			
 			static Id()
 			{

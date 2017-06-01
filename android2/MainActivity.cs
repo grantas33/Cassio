@@ -8,7 +8,8 @@ using Android.Views;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using SQLite;
+using System.IO;
 
 namespace android2
 {
@@ -16,10 +17,17 @@ namespace android2
     public class MainActivity : Activity
     {
         public static string caloriekeeper;
-        public static StringBuilder foodstring = new StringBuilder();
+
         public static StringBuilder daystring = new StringBuilder();
-        public static List<string> savedfoods = new List<string>();
-        
+
+        public static FoodsRepository foodsdb = new FoodsRepository(Path.Combine(
+        System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),
+        "foodlog.db3"));
+        public static FoodsRepository saveddb = new FoodsRepository(Path.Combine(
+        System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),
+        "savedfood.db3"));
+
+
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -33,14 +41,7 @@ namespace android2
 
             var localCalorie = Application.Context.GetSharedPreferences("Calorie", FileCreationMode.Private);
             var CalorieEdit = localCalorie.Edit();
-            var localFoods = Application.Context.GetSharedPreferences("Foods", FileCreationMode.Private);
-            var localDays = Application.Context.GetSharedPreferences("Days", FileCreationMode.Private);
-            var localSavedFoods = Application.Context.GetSharedPreferences("SavedFoods", FileCreationMode.Private);
-            foodstring.Clear();
-            foodstring.Append(localFoods.GetString("food", null));       
-            daystring.Clear();
-            daystring.Append(localDays.GetString("days", null));
-            savedfoods = localSavedFoods.GetStringSet("savedfood", savedfoods).ToList();
+            var localDays = Application.Context.GetSharedPreferences("Days", FileCreationMode.Private);                     
 
 
             TextView calories = FindViewById<TextView>(Resource.Id.caloriestxt);
@@ -75,6 +76,8 @@ namespace android2
                 alert.SetMessage("Do you really want to save and clear the data?");
                 alert.SetPositiveButton("Yes", (senderAlert, args) => {
                     var calorieEdit = localCalorie.Edit();
+                    foodsdb.foodlist.Clear();
+                    foodsdb.UpdateDatabase();
                     //toast
                     if (calories.Text != "0")
                     {
@@ -94,14 +97,6 @@ namespace android2
                     caloriekeeper = "0";
                     calorieEdit.PutString("cal", "0");
                     calorieEdit.Apply();
-                    var foodEdit = localFoods.Edit();
-                    foodEdit.Remove("food");
-                    foodstring.Clear();
-                    foodEdit.Apply();
-
-                   
-
-                   
 
                 });
 
@@ -132,16 +127,13 @@ namespace android2
                 alert.SetPositiveButton("Add", (senderAlert, args) => {
 
                    if (!IsValidNumber(inputcal.Text)) { Toast.MakeText(this, "Input some calories!", ToastLength.Short).Show(); }
-                    if (inputfood.Text == string.Empty || inputfood.Text.Contains( ';' )) { Toast.MakeText(this, "Food input is invalid", ToastLength.Short).Show(); }
-                    {
-                        string fooddata = string.Format("{0}, {1} cal.", inputfood.Text, inputcal.Text);
-                        savedfoods.Add(fooddata);
-                        var savedFoodsEdit = localSavedFoods.Edit();
-                        savedFoodsEdit.PutStringSet("savedfood", savedfoods);
-                        savedFoodsEdit.Apply();
+                    else if (inputfood.Text == string.Empty || inputfood.Text.Contains( ';' )) { Toast.MakeText(this, "Food input is invalid", ToastLength.Short).Show(); }
+                    else { 
+                                saveddb.AddFood(new Food(inputfood.Text, int.Parse(inputcal.Text)));
+                                saveddb.UpdateDatabase();
 
-                        Toast.MakeText(this, string.Format("Added {0} to your food list", inputfood.Text), ToastLength.Short).Show();
-                    }
+                                Toast.MakeText(this, string.Format("Added {0} to your food list", inputfood.Text), ToastLength.Short).Show();
+                          }
                     
                 });
 
@@ -158,9 +150,10 @@ namespace android2
         protected override void OnResume()
         {
             base.OnResume();
+           MainActivity.foodsdb.UpdateDatabase();
+            MainActivity.saveddb.UpdateDatabase();
             TextView calories = FindViewById<TextView>(Resource.Id.caloriestxt);           
             calories.Text = caloriekeeper;
-           // var localFoods = Application.Context.GetSharedPreferences("Foods", FileCreationMode.Private);
 
         }
 

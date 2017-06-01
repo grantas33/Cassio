@@ -10,18 +10,19 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using System.IO;
+using SQLite;
 
 namespace android2
 {
     public class GridFragment : Android.Support.V4.App.Fragment
     {
+            
         private Toast mToast = null;
         private string toastMsg = "";
         private int counter = 1;
-        private string foodName = null;
         private string startcalories;
-        private string startfoodstring;
-        //private bool undone = false;
+
 
         public GridFragment()
         {
@@ -38,143 +39,93 @@ namespace android2
             var gridview = view.FindViewById<GridView>(Resource.Id.gridview);
             gridview.Adapter = new ImageAdapter(view.Context);
 
-            //Button undobutt = view.FindViewById<Button>(Resource.Id.undobutton);
+
             var localCalorie = Application.Context.GetSharedPreferences("Calorie", FileCreationMode.Private);
             var CalorieEdit = localCalorie.Edit();
-            var localFoods = Application.Context.GetSharedPreferences("Foods", FileCreationMode.Private);
-            var FoodEdit = localFoods.Edit();
             startcalories = localCalorie.GetString("cal", "0");
-            startfoodstring = localFoods.GetString("food", null);
-
-            //undobutt.Click += (sender, e) =>
-            //{
-            //    if (startcalories == MainActivity.caloriekeeper)
-            //    {
-            //        if (mToast != null) mToast.Cancel();
-            //        mToast = Toast.MakeText(view.Context, "You haven't selected any foods yet!", ToastLength.Short);
-            //        mToast.Show();
-            //    }
-            //    else
-            //    {
-            //        MainActivity.caloriekeeper = startcalories;
-            //        counter = 1;
-            //        MainActivity.foodstring.Clear();
-            //        MainActivity.foodstring.Append(startfoodstring);
-            //        FoodEdit.Remove("food");
-            //        if (startfoodstring != null) FoodEdit.PutString("food", MainActivity.foodstring.ToString());
-            //        FoodEdit.Apply();
-
-
-            //        CalorieEdit.PutString("cal", startcalories);
-            //        CalorieEdit.Apply();
-
-            //        undone = true;
-            //        if (mToast != null) mToast.Cancel();
-            //        mToast = Toast.MakeText(view.Context, "All choices removed", ToastLength.Short);
-            //        mToast.Show();
-            //    }
-            //};
-
 
             gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {
-
+                
                 switch (args.Position.ToString())
                 {
                     case "0":
-                        MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + 136).ToString();
-                        MainActivity.foodstring.Append("Banana, 136 cal.;");
-                        foodName = "banana";
-                        break;
 
+                        ClickActionProcess("Banana", 136);
+                        break;
                     case "1":
-                        MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + 200).ToString();
-                        MainActivity.foodstring.Append("Apple, 200 cal.;");
-                        foodName = "apple";
+                        
+                        ClickActionProcess("Apple", 200);
                         break;
 
                     case "2":
-                        MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + 62).ToString();
-                        MainActivity.foodstring.Append("Orange, 62 cal.;");
-                        foodName = "orange";
+                       
+                        ClickActionProcess("Orange", 62);
                         break;
 
                     case "3":
-                        MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + 90).ToString();
-                        MainActivity.foodstring.Append("Slice of watermelon, 90 cal.;");
-                        foodName = "slice of watermelon";
+                      
+                        ClickActionProcess("Slice of watermelon", 90);
                         break;
 
                     case "4":
-                        MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + 100).ToString();
-                        MainActivity.foodstring.Append("Pear, 100 cal.;");
-                        foodName = "pear";
+                       
+                        ClickActionProcess("Pear", 100);
                         break;
 
                     case "5":
-                        MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + 150).ToString();
-                        MainActivity.foodstring.Append("Cucumber, 150 cal.;");
-                        foodName = "cucumber";
+                        
+                        ClickActionProcess("Cucumber", 150);
                         break;
 
                     case "6":
-                        MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + 123).ToString();
-                        MainActivity.foodstring.Append("Tomato, 123 cal.;");
-                        foodName = "tomato";
+                       
+                        ClickActionProcess("Tomato", 123);
                         break;
 
                     case "7":
-                        MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + 100).ToString();
-                        MainActivity.foodstring.Append("Loaf of bread, 100 cal.;");
-                        foodName = "loaf of bread";
+                        
+                        ClickActionProcess("Loaf of bread", 100);
                         break;
 
                     case "8":
-                        MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + 145).ToString();
-                        MainActivity.foodstring.Append("Potato, 145 cal.;");
-                        foodName = "potato";
+                       
+                        ClickActionProcess("Potato", 145);
                         break;
 
                     case "9":
-                        MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + 345).ToString();
-                        MainActivity.foodstring.Append("Buckwheat 100g, 345 cal.;");
-                        foodName = "100g buckwheat";
+                      
+                        ClickActionProcess("Buckwheat(100g)", 345);
                         break;
 
                     case "10":
-                        MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + 360).ToString();
-                        MainActivity.foodstring.Append("Pasta 100g, 360 cal.;");
-                        foodName = "100g pasta";
+                     
+                        ClickActionProcess("Pasta(100g)", 360);
                         break;
 
                     case "11":
-                        MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + 98).ToString();
-                        MainActivity.foodstring.Append("Curd 100g, 98 cal.;");
-                        foodName = "100g curd";
+                       
+                        ClickActionProcess("Curd(100g)", 98);
                         break;
 
                     case "12":
-                        MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + 100).ToString();
-                        MainActivity.foodstring.Append("Egg, 100 cal.;");
-                        foodName = "egg";
+                       
+                        ClickActionProcess("Egg", 100);
                         break;
 
                     case "13":
-                        MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + 150).ToString();
-                        MainActivity.foodstring.Append("Cheese curd snack, 150 cal.;");
-                        foodName = "cheese curd snack";
+                       
+                        ClickActionProcess("Cheese curd snack", 150);
                         break;
 
                     case "14":
-                        MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + 115).ToString();
-                        MainActivity.foodstring.Append("Slice of pizza, 115 cal.;");
-                        foodName = "slice of pizza";
+                       
+                        ClickActionProcess("Slice of pizza", 115);
                         break;
 
                     case "15":
-                        MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + 55).ToString();
-                        MainActivity.foodstring.Append("Chicken soup 100g, 55 cal.;");
-                        foodName = "100g chicken soup";
+                        
+                        ClickActionProcess("Chicken soup(100g)", 55);
                         break;
 
                     default:
@@ -182,7 +133,7 @@ namespace android2
 
                 }
 
-                if (toastMsg == string.Format("Added {0} {1}", counter, foodName))
+                if (toastMsg == string.Format("Added {0} {1}", counter, MainActivity.foodsdb.GetLast().Name))
                 {
                     counter++;
                 }
@@ -191,21 +142,34 @@ namespace android2
                     counter = 1;
                 }
 
-                toastMsg = string.Format("Added {0} {1}", counter, foodName);
+                toastMsg = string.Format("Added {0} {1}", counter, MainActivity.foodsdb.GetLast().Name);
                 if (mToast != null) mToast.Cancel();
                 mToast = Toast.MakeText(view.Context, toastMsg, ToastLength.Short);
                 mToast.Show();
 
-
+                
                 CalorieEdit.PutString("cal", MainActivity.caloriekeeper);
                 CalorieEdit.Apply();
-
-
-                FoodEdit.PutString("food", MainActivity.foodstring.ToString());
-                FoodEdit.Apply();
 
             };
            return view;
         }
+
+        public void ClickActionProcess(string foodname, int calories)
+        {
+            MainActivity.foodsdb.AddFood(new Food(foodname, calories));
+            MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + calories).ToString();
+
+        }
+
+        public override void OnPause()
+
+        {
+            base.OnPause();
+            MainActivity.foodsdb.UpdateDatabase();
+        }
+
+
+
     }
 }
