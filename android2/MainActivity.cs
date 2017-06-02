@@ -127,13 +127,32 @@ namespace android2
                 alert.SetPositiveButton("Add", (senderAlert, args) => {
 
                    if (!IsValidNumber(inputcal.Text)) { Toast.MakeText(this, "Input some calories!", ToastLength.Short).Show(); }
-                    else if (inputfood.Text == string.Empty || inputfood.Text.Contains( ';' )) { Toast.MakeText(this, "Food input is invalid", ToastLength.Short).Show(); }
-                   //else if(saveddb.foodlist.c)
-                    else { 
+                    else if (inputfood.Text == string.Empty || inputfood.Text.Contains( ';' )) { Toast.MakeText(this, "Food input is invalid", ToastLength.Short).Show(); }                  
+                    else {
+                        if (saveddb.foodlist.Where(foo => String.Equals(foo.Name, inputfood.Text, StringComparison.OrdinalIgnoreCase)).Count() > 0)
+                        {
+                            AlertDialog.Builder secondalert = new AlertDialog.Builder(this);
+                            secondalert.SetTitle("This food already exists in your database. Overwrite?");
+                            secondalert.SetPositiveButton("Yes", (s, ea) =>
+                            {
+                                saveddb.DeleteFood(saveddb.foodlist.Where(foo => String.Equals(foo.Name, inputfood.Text, StringComparison.OrdinalIgnoreCase)).FirstOrDefault());
                                 saveddb.AddFood(new Food(inputfood.Text, int.Parse(inputcal.Text)));
                                 saveddb.UpdateDatabase();
-
                                 Toast.MakeText(this, string.Format("Added {0} to your food list", inputfood.Text), ToastLength.Short).Show();
+
+                            });
+                            secondalert.SetNegativeButton("No", (s, ea) => { });
+                            Dialog seconddialog = secondalert.Create();
+                            seconddialog.Show();
+
+                        }
+                        else
+                        {
+                            saveddb.AddFood(new Food(inputfood.Text, int.Parse(inputcal.Text)));
+                            saveddb.UpdateDatabase();
+
+                            Toast.MakeText(this, string.Format("Added {0} to your food list", inputfood.Text), ToastLength.Short).Show();
+                        }
                           }
                     
                 });

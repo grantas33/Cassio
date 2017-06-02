@@ -68,6 +68,14 @@ namespace android2
             update = true;
         }
 
+        public void DeleteFood(Food food)
+        {
+
+            foodlist.Remove(food);
+
+            update = true;
+        }
+
         //Delete last Food
         public void DeleteLast()
         {

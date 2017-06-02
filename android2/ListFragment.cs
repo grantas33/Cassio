@@ -39,8 +39,7 @@ namespace android2
             mListView.EmptyView = mEmptyView;
 
             mListView.ItemClick += (object sender, ItemClickEventArgs e) =>
-            {
-                if (mListView.GetItemAtPosition(e.Position).ToString() == "Empty!") return;                              
+            {                          
                 Food food = new Food(mListView.GetItemAtPosition(e.Position).ToString());
                 MainActivity.foodsdb.AddFood(food);
                 MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + food.Calories).ToString();
@@ -77,7 +76,8 @@ namespace android2
                 {
 
                     MainActivity.saveddb.DeleteFood(e.Position);
- 
+                    MainActivity.saveddb.UpdateDatabase();
+
                     adapter = new ArrayAdapter<Food>(Context, Android.Resource.Layout.SimpleListItem1, MainActivity.saveddb.foodlist);
                     mListView.Adapter = adapter;
                 
@@ -98,7 +98,8 @@ namespace android2
             mSearchView.QueryTextChange += (object sender, SearchView.QueryTextChangeEventArgs e) =>
             {
                 mListView.Adapter = new ArrayAdapter<Food>(Context, Android.Resource.Layout.SimpleListItem1, MainActivity.saveddb.foodlist.Where(foo => foo.Name.IndexOf(e.NewText, StringComparison.OrdinalIgnoreCase) >= 0).Select(foo => foo).ToList());
-                mEmptyView.Text = "No results!";
+                if (MainActivity.saveddb.foodlist.Count > 0) mEmptyView.Text = "No results!";
+                else mEmptyView.Text = "You haven't added any foods!";
             };
 
             return view;
