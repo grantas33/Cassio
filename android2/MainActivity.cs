@@ -128,6 +128,7 @@ namespace android2
 
                    if (!IsValidNumber(inputcal.Text)) { Toast.MakeText(this, "Input some calories!", ToastLength.Short).Show(); }
                     else if (inputfood.Text == string.Empty || inputfood.Text.Contains( ';' )) { Toast.MakeText(this, "Food input is invalid", ToastLength.Short).Show(); }
+                   //else if(saveddb.foodlist.c)
                     else { 
                                 saveddb.AddFood(new Food(inputfood.Text, int.Parse(inputcal.Text)));
                                 saveddb.UpdateDatabase();

@@ -97,7 +97,8 @@ namespace android2
 
             mSearchView.QueryTextChange += (object sender, SearchView.QueryTextChangeEventArgs e) =>
             {
-                adapter.Filter.InvokeFilter(e.NewText);
+                mListView.Adapter = new ArrayAdapter<Food>(Context, Android.Resource.Layout.SimpleListItem1, MainActivity.saveddb.foodlist.Where(foo => foo.Name.IndexOf(e.NewText, StringComparison.OrdinalIgnoreCase) >= 0).Select(foo => foo).ToList());
+                mEmptyView.Text = "No results!";
             };
 
             return view;
