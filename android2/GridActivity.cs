@@ -25,8 +25,10 @@ namespace android2
 
             SetContentView(Resource.Layout.Gridpage);
             Button undolastbutt = FindViewById<Button>(Resource.Id.undolastbutton);
-            var mListView = FindViewById<ListView>(Resource.Id.listfoodlog);
+            View emptytext = FindViewById(Resource.Id.emptyfoodlog);
+            ListView mListView = FindViewById<ListView>(Resource.Id.listfoodlog);
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            mListView.EmptyView = emptytext;
             SetActionBar(toolbar);
             ActionBar.Title = "Food log";
 

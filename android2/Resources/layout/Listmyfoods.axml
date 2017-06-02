@@ -17,4 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/listviewmyfoods" />
+  <TextView
+    android:id="@+id/emptymyfoodsview"
+    android:text="You haven't added any foods!"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    />
 </LinearLayout>

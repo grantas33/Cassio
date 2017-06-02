@@ -12,7 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:id="@android:id/list" />
+        android:id="@+id/listdays" />
+  <TextView
+    android:id="@+id/emptydayview"
+    android:text="No saved data!"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

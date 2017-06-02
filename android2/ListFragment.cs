@@ -30,11 +30,13 @@ namespace android2
             var view = inflater.Inflate(Resource.Layout.Listmyfoods, container, false);
             mListView = view.FindViewById<ListView>(Resource.Id.listviewmyfoods);
             mSearchView = view.FindViewById<SearchView>(Resource.Id.searchviewmyfoods);
+            TextView mEmptyView = view.FindViewById<TextView>(Resource.Id.emptymyfoodsview);
             var localCalorie = Application.Context.GetSharedPreferences("Calorie", FileCreationMode.Private);
             var CalorieEdit = localCalorie.Edit();
             MainActivity.saveddb.foodlist = MainActivity.saveddb.foodlist.OrderBy(foo => foo.Name).ToList();
             ArrayAdapter<Food> adapter = new ArrayAdapter<Food>(Context, Android.Resource.Layout.SimpleListItem1, MainActivity.saveddb.foodlist);
             mListView.Adapter = adapter;
+            mListView.EmptyView = mEmptyView;
 
             mListView.ItemClick += (object sender, ItemClickEventArgs e) =>
             {

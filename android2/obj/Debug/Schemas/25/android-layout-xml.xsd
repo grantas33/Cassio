@@ -5,7 +5,7 @@
   <xs:import schemaLocation="schemas.android.com.tools.xsd" namespace="http://schemas.android.com/tools" />
   <xs:annotation>
     <xs:documentation>v25</xs:documentation>
-    <xs:documentation>2017-05-01 13:44:59</xs:documentation>
+    <xs:documentation>2017-06-02 10:59:26</xs:documentation>
   </xs:annotation>
   <xs:group name="any-view">
     <xs:choice>
@@ -92,7 +92,7 @@
       <xs:element ref="android.support.v4.view.PagerTitleStrip" />
       <xs:element ref="android.support.v4.view.PagerTabStrip" />
       <xs:element ref="android.support.v4.app.FragmentTabHost" />
-      <xs:element ref="merge" />
+      <xs:element ref="include" />
     </xs:choice>
   </xs:group>
   <xs:element name="CheckedTextView" type="CheckedTextView">
@@ -1513,17 +1513,17 @@
       <xs:extension base="TabHost" />
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="merge" type="merge">
+  <xs:element name="include" type="include">
     <xs:annotation>
-      <xs:documentation>Runtime Type: merge</xs:documentation>
+      <xs:documentation>Runtime Type: include</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:complexType name="merge">
-    <xs:complexContent mixed="false">
-      <xs:extension base="java.lang.Object">
-        <xs:attribute ref="tools:parentTag" />
-        <xs:attribute ref="android:style" />
-      </xs:extension>
-    </xs:complexContent>
+  <xs:complexType name="include">
+    <xs:attribute ref="android:id" />
+    <xs:attribute ref="android:visibility" />
+    <xs:attribute ref="android:layout_width" />
+    <xs:attribute ref="android:layout_height" />
+    <xs:attribute ref="android:style" />
+    <xs:attribute ref="android:layout" />
   </xs:complexType>
 </xs:schema>

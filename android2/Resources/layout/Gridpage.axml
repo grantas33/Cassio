@@ -15,6 +15,13 @@
         android:layout_height="0dip"
         android:layout_weight="1"
         android:id="@+id/listfoodlog" />
+      <TextView
+        android:id="@+id/emptyfoodlog"
+        android:text="Empty!"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+       />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

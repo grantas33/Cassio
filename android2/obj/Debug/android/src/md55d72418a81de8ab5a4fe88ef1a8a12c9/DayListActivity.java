@@ -2,7 +2,7 @@ package md55d72418a81de8ab5a4fe88ef1a8a12c9;
 
 
 public class DayListActivity
-	extends android.app.ListActivity
+	extends android.app.Activity
 	implements
 		mono.android.IGCUserPeer
 {

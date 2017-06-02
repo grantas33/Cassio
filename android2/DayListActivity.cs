@@ -13,7 +13,7 @@ using Android.Widget;
 namespace android2
 {
     [Activity(Label = "DayListActivity")]
-    public class DayListActivity : ListActivity
+    public class DayListActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -24,12 +24,14 @@ namespace android2
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
             ActionBar.Title = "Daily view";
-
-            var localDays = Application.Context.GetSharedPreferences("Days", FileCreationMode.Private);
-            string[] alldays = localDays.GetString("days", "Empty!").Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-            this.ListAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, alldays);
-
+            ListView lv = FindViewById<ListView>(Resource.Id.listdays);
+            TextView empty = FindViewById<TextView>(Resource.Id.emptydayview);
             Button clearfinalbutt = FindViewById<Button>(Resource.Id.clearfinalbutton);
+            var localDays = Application.Context.GetSharedPreferences("Days", FileCreationMode.Private);
+            string[] alldays = localDays.GetString("days", "").Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, alldays);
+            lv.EmptyView = empty;
+            
             clearfinalbutt.Click += (sender, e) =>
             {
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -41,7 +43,7 @@ namespace android2
                     MainActivity.daystring.Clear();
                     daysEdit.Apply();
                     Toast.MakeText(this, "History cleared!", ToastLength.Short).Show();
-                    ListAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, new string[] {"Empty!" });
+                    lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, new string[] { });
                 });
 
                 alert.SetNegativeButton("No", (senderAlert, args) => {

@@ -2,7 +2,7 @@
 <xs:schema xmlns:tools="http://schemas.android.com/tools" attributeFormDefault="qualified" targetNamespace="http://schemas.android.com/tools" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>v25</xs:documentation>
-    <xs:documentation>2017-05-01 13:44:59</xs:documentation>
+    <xs:documentation>2017-06-02 10:59:26</xs:documentation>
   </xs:annotation>
   <xs:attribute name="layout">
     <xs:annotation>
@@ -12,14 +12,6 @@
       <xs:union memberTypes="xs:string">
         <xs:simpleType>
           <xs:restriction base="xs:string">
-            <xs:enumeration value="@layout/createfoodalert" />
-            <xs:enumeration value="@layout/daylistpage" />
-            <xs:enumeration value="@layout/gridpage" />
-            <xs:enumeration value="@layout/listmyfoods" />
-            <xs:enumeration value="@layout/main" />
-            <xs:enumeration value="@layout/realgridpage" />
-            <xs:enumeration value="@layout/tabpage" />
-            <xs:enumeration value="@layout/toolbar" />
             <xs:enumeration value="@android:layout/activity_list_item" />
             <xs:enumeration value="@android:layout/browser_link_context_header" />
             <xs:enumeration value="@android:layout/expandable_list_content" />
@@ -68,14 +60,6 @@
       <xs:union memberTypes="xs:string">
         <xs:simpleType>
           <xs:restriction base="xs:string">
-            <xs:enumeration value="@layout/createfoodalert" />
-            <xs:enumeration value="@layout/daylistpage" />
-            <xs:enumeration value="@layout/gridpage" />
-            <xs:enumeration value="@layout/listmyfoods" />
-            <xs:enumeration value="@layout/main" />
-            <xs:enumeration value="@layout/realgridpage" />
-            <xs:enumeration value="@layout/tabpage" />
-            <xs:enumeration value="@layout/toolbar" />
             <xs:enumeration value="@android:layout/activity_list_item" />
             <xs:enumeration value="@android:layout/browser_link_context_header" />
             <xs:enumeration value="@android:layout/expandable_list_content" />
@@ -124,14 +108,6 @@
       <xs:union memberTypes="xs:string">
         <xs:simpleType>
           <xs:restriction base="xs:string">
-            <xs:enumeration value="@layout/createfoodalert" />
-            <xs:enumeration value="@layout/daylistpage" />
-            <xs:enumeration value="@layout/gridpage" />
-            <xs:enumeration value="@layout/listmyfoods" />
-            <xs:enumeration value="@layout/main" />
-            <xs:enumeration value="@layout/realgridpage" />
-            <xs:enumeration value="@layout/tabpage" />
-            <xs:enumeration value="@layout/toolbar" />
             <xs:enumeration value="@android:layout/activity_list_item" />
             <xs:enumeration value="@android:layout/browser_link_context_header" />
             <xs:enumeration value="@android:layout/expandable_list_content" />
@@ -180,14 +156,6 @@
       <xs:union memberTypes="xs:string">
         <xs:simpleType>
           <xs:restriction base="xs:string">
-            <xs:enumeration value="@layout/createfoodalert" />
-            <xs:enumeration value="@layout/daylistpage" />
-            <xs:enumeration value="@layout/gridpage" />
-            <xs:enumeration value="@layout/listmyfoods" />
-            <xs:enumeration value="@layout/main" />
-            <xs:enumeration value="@layout/realgridpage" />
-            <xs:enumeration value="@layout/tabpage" />
-            <xs:enumeration value="@layout/toolbar" />
             <xs:enumeration value="@android:layout/activity_list_item" />
             <xs:enumeration value="@android:layout/browser_link_context_header" />
             <xs:enumeration value="@android:layout/expandable_list_content" />
@@ -245,18 +213,6 @@
       </xs:union>
     </xs:simpleType>
   </xs:attribute>
-  <xs:attribute name="parentTag">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-    </xs:annotation>
-    <xs:simpleType>
-      <xs:union memberTypes="xs:string">
-        <xs:simpleType>
-          <xs:restriction base="xs:string" />
-        </xs:simpleType>
-      </xs:union>
-    </xs:simpleType>
-  </xs:attribute>
   <xs:attribute name="text">
     <xs:annotation>
       <xs:documentation>Text to display.</xs:documentation>
@@ -265,8 +221,6 @@
       <xs:union memberTypes="xs:string">
         <xs:simpleType>
           <xs:restriction base="xs:string">
-            <xs:enumeration value="@string/ApplicationName" />
-            <xs:enumeration value="@string/Hello" />
             <xs:enumeration value="@android:string/cancel" />
             <xs:enumeration value="@android:string/copy" />
             <xs:enumeration value="@android:string/copyUrl" />
