@@ -3,6 +3,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:id="@+id/scanbutton"
+        android:text="Scan barcode" />
     <TextView
         android:text="Enter the name of the food:"
         android:layout_width="match_parent"
@@ -11,7 +17,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLength="50"
+        android:maxLength="200"
         android:id="@+id/inputnewfood" />
     <TextView
         android:text="Enter calories:"
@@ -23,5 +29,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/inputnewcal"
+        android:maxLength="5" />
+    <TextView
+        android:text="Enter grams (optional): "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/alerttext3"
+        />
+    <EditText
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/inputgram"
         android:maxLength="5" />
 </LinearLayout>

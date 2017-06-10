@@ -37,7 +37,7 @@
       android:id="@+id/gridbutton" />
     <Button
       android:layout_weight="1"
-      android:text="Add manually"
+      android:text="Create food"
       android:layout_width="wrap_content"
       android:layout_height="fill_parent"
       android:id="@+id/manualbutton" />

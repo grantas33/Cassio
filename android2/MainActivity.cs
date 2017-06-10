@@ -10,6 +10,11 @@ using System.Linq;
 using System.Text;
 using SQLite;
 using System.IO;
+using ZXing.Mobile;
+using System.Net.Http;
+using System.Xml;
+using HtmlAgilityPack;
+using System.Net;
 
 namespace android2
 {
@@ -32,8 +37,9 @@ namespace android2
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-         
-      // Set our view from the "main" layout resource
+            MobileBarcodeScanner.Initialize(Application);
+
+            // Set our view from the "main" layout resource
             SetContentView (Resource.Layout.Main);
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
@@ -41,7 +47,7 @@ namespace android2
 
             var localCalorie = Application.Context.GetSharedPreferences("Calorie", FileCreationMode.Private);
             var CalorieEdit = localCalorie.Edit();
-            var localDays = Application.Context.GetSharedPreferences("Days", FileCreationMode.Private);                     
+            var localDays = Application.Context.GetSharedPreferences("Days", FileCreationMode.Private);
 
 
             TextView calories = FindViewById<TextView>(Resource.Id.caloriestxt);
@@ -116,12 +122,57 @@ namespace android2
 
             manualbutt.Click += (sender, e) =>
             {
+                
                 var inputView = LayoutInflater.Inflate(Resource.Layout.CreateFoodAlert, null);
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.SetTitle("Create your own food");
                 alert.SetView(inputView);
                 EditText inputfood = inputView.FindViewById<EditText>(Resource.Id.inputnewfood);
                 EditText inputcal = inputView.FindViewById<EditText>(Resource.Id.inputnewcal);
+                Button scanbutt = inputView.FindViewById<Button>(Resource.Id.scanbutton);
+                TextView graminputtext = inputView.FindViewById<TextView>(Resource.Id.alerttext3);
+                EditText graminput = inputView.FindViewById<EditText>(Resource.Id.inputgram);
+                int grams = 0;
+
+                scanbutt.Click += async (send, ev) => {
+                    
+                    var scanner = new MobileBarcodeScanner();
+                    var result = await scanner.Scan();
+                    Food food = new Food();
+
+                    if (result != null)
+                    {
+                        FindFoodDataFromUrl(string.Format("https://app.rimi.lt/entry/{0}", result.Text), out food);
+                        if(food.Name != "notset")
+                        {
+                            alert.SetTitle("Product found!");
+                            
+
+                            inputfood.Text = food.Name;
+                            inputcal.Text = food.Calories.ToString();
+                            inputfood.Enabled = false;
+                            inputcal.Enabled = false;
+                            graminput.TextChanged += (so, ea) =>
+                            {
+                                if (graminput.Text != string.Empty)
+                                {
+                                    inputcal.Text = (food.Calories * int.Parse(graminput.Text) / 100).ToString();
+                                    grams = int.Parse(graminput.Text);
+
+                                }
+                                else
+                                {
+                                    inputcal.Text = food.Calories.ToString();
+                                    grams = 100;
+                                }
+                            };
+
+                        }
+                        else Toast.MakeText(this, "Product not found :(", ToastLength.Long).Show();
+
+                    }
+                    
+                };
 
 
                 alert.SetPositiveButton("Add", (senderAlert, args) => {
@@ -129,14 +180,14 @@ namespace android2
                    if (!IsValidNumber(inputcal.Text)) { Toast.MakeText(this, "Input some calories!", ToastLength.Short).Show(); }
                     else if (inputfood.Text == string.Empty || inputfood.Text.Contains( ';' )) { Toast.MakeText(this, "Food input is invalid", ToastLength.Short).Show(); }                  
                     else {
-                        if (saveddb.foodlist.Where(foo => String.Equals(foo.Name, inputfood.Text, StringComparison.OrdinalIgnoreCase)).Count() > 0)
+                        if (saveddb.foodlist.Where(foo => String.Equals(foo.Name+foo.Grams, inputfood.Text+grams, StringComparison.OrdinalIgnoreCase)).Count() > 0)
                         {
                             AlertDialog.Builder secondalert = new AlertDialog.Builder(this);
                             secondalert.SetTitle("This food already exists in your database. Overwrite?");
                             secondalert.SetPositiveButton("Yes", (s, ea) =>
                             {
-                                saveddb.DeleteFood(saveddb.foodlist.Where(foo => String.Equals(foo.Name, inputfood.Text, StringComparison.OrdinalIgnoreCase)).FirstOrDefault());
-                                saveddb.AddFood(new Food(inputfood.Text, int.Parse(inputcal.Text)));
+                                saveddb.DeleteFood(saveddb.foodlist.Where(foo => String.Equals(foo.Name+foo.Grams, inputfood.Text+grams, StringComparison.OrdinalIgnoreCase)).FirstOrDefault());
+                                saveddb.AddFood(new Food(inputfood.Text, int.Parse(inputcal.Text), grams));
                                 saveddb.UpdateDatabase();
                                 Toast.MakeText(this, string.Format("Added {0} to your food list", inputfood.Text), ToastLength.Short).Show();
 
@@ -148,7 +199,7 @@ namespace android2
                         }
                         else
                         {
-                            saveddb.AddFood(new Food(inputfood.Text, int.Parse(inputcal.Text)));
+                            saveddb.AddFood(new Food(inputfood.Text, int.Parse(inputcal.Text), grams));
                             saveddb.UpdateDatabase();
 
                             Toast.MakeText(this, string.Format("Added {0} to your food list", inputfood.Text), ToastLength.Short).Show();
@@ -188,6 +239,52 @@ namespace android2
             return true;
         }
 
+        public void FindFoodDataFromUrl(string url, out Food food)
+        {
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            WebResponse myResponse;
+            HtmlDocument doc = new HtmlDocument();
+            string foodname = "notset";
+            int foodcal = 0;
+            food = new Food(foodname, foodcal);
+
+            try
+            {           
+                myResponse = request.GetResponse(); 
+                doc.Load(myResponse.GetResponseStream());
+            }
+            catch
+            {               
+                return;
+            }           
+
+            if (doc.DocumentNode != null)
+            {
+                var titlenode = doc.DocumentNode.Descendants("title").FirstOrDefault();
+                string titlename = titlenode.InnerHtml;
+                foodname = titlename.Substring(0, titlename.Length - 19);
+                string numbers = "0123456789";
+                StringBuilder sb = new StringBuilder();
+
+                int calind = doc.DocumentNode.OuterHtml.IndexOf(" kcal");
+                for (int i = calind-1; i > 0; i--)
+                {
+                    if (numbers.IndexOf(doc.DocumentNode.OuterHtml[i]) != -1) sb.Insert(0, doc.DocumentNode.OuterHtml[i]);
+                    else
+                    {
+                        foodcal = int.Parse(sb.ToString());
+                        break;
+                    }
+                }
+
+                 food = new Food(foodname, foodcal);
+
+            }
+            else System.Diagnostics.Debug.Write("nullnode");
+        }
+
     }
+
+
 }
 

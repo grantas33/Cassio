@@ -22,6 +22,7 @@ namespace android2
         public string Name { get; set; }
         public int Calories { get; set; }
         public int Multiplier { get; set; }
+        public int Grams { get; set; }
 
         public Food()
         {
@@ -32,15 +33,18 @@ namespace android2
         {
             Name = name;
             Calories = calories;
-            Multiplier = 1;
+            Multiplier = 1;           
         }
 
-        public Food(string name, int calories, int multiplier)
+        public Food(string name, int calories, int grams)
         {
             Name = name;
             Calories = calories;
-            Multiplier = multiplier;
+            Grams = grams;         
         }
+
+
+
 
         public Food(string output)
         {
@@ -90,6 +94,11 @@ namespace android2
 
         public override string ToString()
         {
+            if(Grams != 0)
+            {
+                if (Multiplier > 1) return String.Format("{0}({2}g), {1} cal. x{3}", Name, Calories, Grams, Multiplier);
+                else return String.Format("{0}({2}g), {1} cal.", Name, Calories, Grams);
+            }
             if (Multiplier > 1) return String.Format("{0}, {1} cal. x{2}", Name, Calories, Multiplier);
             else return String.Format("{0}, {1} cal.", Name, Calories);
         }
