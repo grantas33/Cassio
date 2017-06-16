@@ -282,7 +282,10 @@ namespace android2
                 int calind = doc.DocumentNode.OuterHtml.IndexOf(" kcal");
                 for (int i = calind-1; i > 0; i--)
                 {
-                    if (numbers.IndexOf(doc.DocumentNode.OuterHtml[i]) != -1) sb.Insert(0, doc.DocumentNode.OuterHtml[i]);
+                    if (numbers.IndexOf(doc.DocumentNode.OuterHtml[i]) != -1)
+                    {
+                        sb.Insert(0, doc.DocumentNode.OuterHtml[i]);
+                    }
                     else
                     {
                         foodcal = int.Parse(sb.ToString());
