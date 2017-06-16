@@ -22,6 +22,7 @@ namespace android2
     [Activity(Label = "android2", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
+        //attempt to commit
         public static string caloriekeeper;
 
         public static StringBuilder daystring = new StringBuilder();
