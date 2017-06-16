@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Xml;
 using HtmlAgilityPack;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace android2
 {
@@ -137,23 +138,39 @@ namespace android2
                 scanbutt.Click += async (send, ev) => {
                     
                     var scanner = new MobileBarcodeScanner();
+                    inputfood.Text = inputcal.Text = graminput.Text = "";
+                    inputfood.Enabled = true;
+                    inputcal.Enabled = true;
+
                     var result = await scanner.Scan();
                     Food food = new Food();
-
+                    ProgressDialog progress = new ProgressDialog(this);
+                    progress.Indeterminate = true;
+                    progress.SetProgressStyle(ProgressDialogStyle.Spinner);
+                    progress.SetMessage("Searching the fridge..");
+                    progress.SetCancelable(false);
+                    
                     if (result != null)
-                    {
-                        FindFoodDataFromUrl(string.Format("https://app.rimi.lt/entry/{0}", result.Text), out food);
-                        if(food.Name != "notset")
+                    {                      
+                        progress.Show();
+                        try
                         {
-                            alert.SetTitle("Product found!");
-                            
+                            food = await FindFoodDataFromUrl(string.Format("https://app.rimi.lt/entry/{0}", result.Text));
+                        }
+                        catch
+                        {
+                            progress.Dismiss();
+                            Toast.MakeText(this, "Product not found :(", ToastLength.Long).Show();
+                            return;
+                        }
+                        progress.Dismiss();
 
-                            inputfood.Text = food.Name;
-                            inputcal.Text = food.Calories.ToString();
-                            inputfood.Enabled = false;
-                            inputcal.Enabled = false;
-                            graminput.TextChanged += (so, ea) =>
-                            {
+                        inputfood.Text = food.Name;
+                        inputcal.Text = food.Calories.ToString();
+                        inputfood.Enabled = false;
+                        inputcal.Enabled = false;
+                        graminput.TextChanged += (so, ea) =>
+                        {
                                 if (graminput.Text != string.Empty)
                                 {
                                     inputcal.Text = (food.Calories * int.Parse(graminput.Text) / 100).ToString();
@@ -165,12 +182,8 @@ namespace android2
                                     inputcal.Text = food.Calories.ToString();
                                     grams = 100;
                                 }
-                            };
-
+                        };
                         }
-                        else Toast.MakeText(this, "Product not found :(", ToastLength.Long).Show();
-
-                    }
                     
                 };
 
@@ -239,24 +252,24 @@ namespace android2
             return true;
         }
 
-        public void FindFoodDataFromUrl(string url, out Food food)
+        public async Task<Food> FindFoodDataFromUrl(string url)
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
             WebResponse myResponse;
             HtmlDocument doc = new HtmlDocument();
             string foodname = "notset";
             int foodcal = 0;
-            food = new Food(foodname, foodcal);
+            var food = new Food(foodname, foodcal);
 
-            try
-            {           
-                myResponse = request.GetResponse(); 
+            //try
+            //{           
+                myResponse = await request.GetResponseAsync(); 
                 doc.Load(myResponse.GetResponseStream());
-            }
-            catch
-            {               
-                return;
-            }           
+            //}
+            //catch
+            //{
+            //    return food;
+            //}           
 
             if (doc.DocumentNode != null)
             {
@@ -278,10 +291,13 @@ namespace android2
                 }
 
                  food = new Food(foodname, foodcal);
+                
 
             }
             else System.Diagnostics.Debug.Write("nullnode");
+            return food;
         }
+        
 
     }
 
