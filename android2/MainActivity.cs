@@ -47,7 +47,7 @@ namespace android2
             SetActionBar(toolbar);
             ActionBar.Title = "Cassio!";
 
-            var localCalorie = Application.Context.GetSharedPreferences("Calorie", FileCreationMode.Private);
+            var localCalorie = Application.GetSharedPreferences("Calorie", FileCreationMode.Private);
             var CalorieEdit = localCalorie.Edit();
             var localDays = Application.Context.GetSharedPreferences("Days", FileCreationMode.Private);
 
@@ -157,6 +157,8 @@ namespace android2
                         try
                         {
                             food = await FindFoodDataFromUrl(string.Format("https://app.rimi.lt/entry/{0}", result.Text));
+                            //issaugojimas duomenu
+                            //skanuoti
                         }
                         catch
                         {
