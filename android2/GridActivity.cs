@@ -32,8 +32,7 @@ namespace android2
             SetActionBar(toolbar);
             ActionBar.Title = "Food log";
 
-
-            ArrayAdapter<Food> adapter = new ArrayAdapter<Food>(this, Android.Resource.Layout.SimpleListItem1, MainActivity.foodsdb.foodlist);
+            var adapter = new FoodRowListAdapter(this, MainActivity.foodsdb.foodlist);
             mListView.Adapter = adapter;
 
 
@@ -48,7 +47,7 @@ namespace android2
 
                 MainActivity.foodsdb.DeleteLast();
 
-                adapter = new ArrayAdapter<Food>(this, Android.Resource.Layout.SimpleListItem1, MainActivity.foodsdb.foodlist);
+                adapter.UpdateAdapter(MainActivity.foodsdb.foodlist);
                 mListView.Adapter = adapter;
                 mListView.OnRestoreInstanceState(state);
             };

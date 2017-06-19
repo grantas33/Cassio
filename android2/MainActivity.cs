@@ -187,7 +187,7 @@ namespace android2
                 Button scanbutt = inputView.FindViewById<Button>(Resource.Id.scanbutton);
                 TextView graminputtext = inputView.FindViewById<TextView>(Resource.Id.alerttext3);
                 EditText graminput = inputView.FindViewById<EditText>(Resource.Id.inputgram);
-                int grams = 0;
+                int grams = 100;
 
                 CreateFoodView createFoodView = new CreateFoodView(inputfood, inputcal, graminput);
 
@@ -251,13 +251,14 @@ namespace android2
                    if (!IsValidNumber(inputcal.Text)) { Toast.MakeText(this, "Input some calories!", ToastLength.Short).Show(); }
                     else if (inputfood.Text == string.Empty || inputfood.Text.Contains( ';' )) { Toast.MakeText(this, "Food input is invalid", ToastLength.Short).Show(); }                  
                     else {
-                        if (saveddb.foodlist.Where(foo => String.Equals(foo.Name+foo.Grams, inputfood.Text+grams, StringComparison.OrdinalIgnoreCase)).Count() > 0)
+                        if (saveddb.foodlist.Where(foo => String.Equals(foo.Name, inputfood.Text, StringComparison.OrdinalIgnoreCase)).Count() > 0)
                         {
                             AlertDialog.Builder secondalert = new AlertDialog.Builder(this);
                             secondalert.SetTitle("This food already exists in your database. Overwrite?");
                             secondalert.SetPositiveButton("Yes", (s, ea) =>
                             {
-                                saveddb.DeleteFood(saveddb.foodlist.Where(foo => String.Equals(foo.Name+foo.Grams, inputfood.Text+grams, StringComparison.OrdinalIgnoreCase)).FirstOrDefault());
+                                saveddb.DeleteFood(saveddb.foodlist.Where(foo => String.Equals(foo.Name, inputfood.Text, StringComparison.OrdinalIgnoreCase)).FirstOrDefault());
+                                if (graminput.Text != "") grams = int.Parse(graminput.Text);
                                 saveddb.AddFood(new Food(inputfood.Text, int.Parse(inputcal.Text), grams));
                                 saveddb.UpdateDatabase();
                                 Toast.MakeText(this, string.Format("Added {0} to your food list", inputfood.Text), ToastLength.Short).Show();
@@ -270,6 +271,7 @@ namespace android2
                         }
                         else
                         {
+                            if (graminput.Text != string.Empty) grams = int.Parse(graminput.Text);
                             saveddb.AddFood(new Food(inputfood.Text, int.Parse(inputcal.Text), grams));
                             saveddb.UpdateDatabase();
 
