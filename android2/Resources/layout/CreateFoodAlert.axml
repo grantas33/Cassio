@@ -34,8 +34,7 @@
         android:text="Enter grams (optional): "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/alerttext3"
-        />
+        android:id="@+id/alerttext3" />
     <EditText
         android:inputType="number"
         android:layout_width="match_parent"

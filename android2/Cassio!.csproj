@@ -17,7 +17,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -133,6 +133,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateFoodView.cs" />
     <Compile Include="DayListActivity.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="FoodsRepository.cs" />

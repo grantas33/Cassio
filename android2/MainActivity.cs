@@ -22,6 +22,7 @@ namespace android2
     [Activity(Label = "android2", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
+        //attempt to commit
         public static string caloriekeeper;
 
         public static StringBuilder daystring = new StringBuilder();
@@ -46,7 +47,7 @@ namespace android2
             SetActionBar(toolbar);
             ActionBar.Title = "Cassio!";
 
-            var localCalorie = Application.Context.GetSharedPreferences("Calorie", FileCreationMode.Private);
+            var localCalorie = Application.GetSharedPreferences("Calorie", FileCreationMode.Private);
             var CalorieEdit = localCalorie.Edit();
             var localDays = Application.Context.GetSharedPreferences("Days", FileCreationMode.Private);
 
@@ -121,6 +122,59 @@ namespace android2
                 StartActivity(intent);
             };
 
+            async void Scan(CreateFoodView createFoodView)
+            {
+                var scanner = new MobileBarcodeScanner();
+                createFoodView.FoodInput.Text = createFoodView.CalInput.Text = createFoodView.GramsInput.Text = "";
+                createFoodView.FoodInput.Enabled = true;
+                createFoodView.CalInput.Enabled = true;
+
+                var result = await scanner.Scan();
+                Food food = new Food();
+                ProgressDialog progress = new ProgressDialog(this);
+                progress.Indeterminate = true;
+                progress.SetProgressStyle(ProgressDialogStyle.Spinner);
+                progress.SetMessage("Searching the fridge..");
+                progress.SetCancelable(false);
+
+                if (result != null)
+                {
+                    progress.Show();
+                    try
+                    {
+                        food = await FindFoodDataFromUrl(string.Format("https://app.rimi.lt/entry/{0}", result.Text));
+                        //issaugojimas duomenu
+                        //skanuoti
+                    }
+                    catch
+                    {
+                        progress.Dismiss();
+                        Toast.MakeText(this, "Product not found :(", ToastLength.Long).Show();
+                    }
+                    progress.Dismiss();
+
+                    createFoodView.FoodInput.Text = food.Name;
+                    createFoodView.CalInput.Text = food.Calories.ToString();
+                    createFoodView.FoodInput.Enabled = false;
+                    createFoodView.CalInput.Enabled = false;
+
+                    createFoodView.GramsInput.TextChanged += (so, ea) =>
+                    {
+                        if (createFoodView.GramsInput.Text != string.Empty)
+                        {
+                            createFoodView.CalInput.Text = (food.Calories * int.Parse(createFoodView.GramsInput.Text) / 100).ToString();
+                            createFoodView.Grams = int.Parse(createFoodView.GramsInput.Text);
+
+                        }
+                        else
+                        {
+                            createFoodView.CalInput.Text = food.Calories.ToString();
+                            createFoodView.Grams = 100;
+                        }
+                    };
+                }
+            }
+
             manualbutt.Click += (sender, e) =>
             {
                 
@@ -134,6 +188,8 @@ namespace android2
                 TextView graminputtext = inputView.FindViewById<TextView>(Resource.Id.alerttext3);
                 EditText graminput = inputView.FindViewById<EditText>(Resource.Id.inputgram);
                 int grams = 0;
+
+                CreateFoodView createFoodView = new CreateFoodView(inputfood, inputcal, graminput);
 
                 scanbutt.Click += async (send, ev) => {
                     
@@ -156,6 +212,8 @@ namespace android2
                         try
                         {
                             food = await FindFoodDataFromUrl(string.Format("https://app.rimi.lt/entry/{0}", result.Text));
+                            //issaugojimas duomenu
+                            //skanuoti
                         }
                         catch
                         {
@@ -282,7 +340,10 @@ namespace android2
                 int calind = doc.DocumentNode.OuterHtml.IndexOf(" kcal");
                 for (int i = calind-1; i > 0; i--)
                 {
-                    if (numbers.IndexOf(doc.DocumentNode.OuterHtml[i]) != -1) sb.Insert(0, doc.DocumentNode.OuterHtml[i]);
+                    if (numbers.IndexOf(doc.DocumentNode.OuterHtml[i]) != -1)
+                    {
+                        sb.Insert(0, doc.DocumentNode.OuterHtml[i]);
+                    }
                     else
                     {
                         foodcal = int.Parse(sb.ToString());
