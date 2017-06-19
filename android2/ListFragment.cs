@@ -34,16 +34,31 @@ namespace android2
             var localCalorie = Application.Context.GetSharedPreferences("Calorie", FileCreationMode.Private);
             var CalorieEdit = localCalorie.Edit();
             MainActivity.saveddb.foodlist = MainActivity.saveddb.foodlist.OrderBy(foo => foo.Name).ToList();
-            ArrayAdapter<Food> adapter = new ArrayAdapter<Food>(Context, Android.Resource.Layout.SimpleListItem1, MainActivity.saveddb.foodlist);
+            var templist = MainActivity.saveddb.foodlist;
+
+           foreach (var i in MainActivity.saveddb.foodlist)
+            {
+                System.Diagnostics.Debug.WriteLine(i);
+                System.Diagnostics.Debug.WriteLine("---");
+            }
+
+            var adapter = new FoodRowListAdapter(this.Activity, templist);
             mListView.Adapter = adapter;
             mListView.EmptyView = mEmptyView;
 
             mListView.ItemClick += (object sender, ItemClickEventArgs e) =>
-            {                          
-                Food food = new Food(mListView.GetItemAtPosition(e.Position).ToString());
+            {
+
+                Food food = new Food(templist[e.Position]);
+
+                
                 MainActivity.foodsdb.AddFood(food);
                 MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + food.Calories).ToString();
-
+                foreach (var i in MainActivity.saveddb.foodlist)
+                {
+                    System.Diagnostics.Debug.WriteLine(i);
+                    System.Diagnostics.Debug.WriteLine("---");
+                }
 
                 if (toastMsg == string.Format("Added {0} {1}", counter, MainActivity.foodsdb.GetLast().Name))
                 {
@@ -67,18 +82,18 @@ namespace android2
 
             mListView.ItemLongClick += (object sender, ItemLongClickEventArgs e) =>
             {
-                if (mListView.GetItemAtPosition(e.Position).ToString() == "Empty!") return;
                 AlertDialog.Builder alert = new AlertDialog.Builder(view.Context);
-                string removedfood = MainActivity.saveddb.foodlist[e.Position].Name;
+                Food removedfood = templist[e.Position];
                 alert.SetTitle("Confirmation alert");
-                alert.SetMessage(string.Format("Remove {0} from the list?", removedfood));
+                alert.SetMessage(string.Format("Remove {0} from the list?", removedfood.Name));
                 alert.SetPositiveButton("Yes", (senderAlert, args) =>
                 {
 
-                    MainActivity.saveddb.DeleteFood(e.Position);
+                    MainActivity.saveddb.DeleteFood(removedfood);
                     MainActivity.saveddb.UpdateDatabase();
 
-                    adapter = new ArrayAdapter<Food>(Context, Android.Resource.Layout.SimpleListItem1, MainActivity.saveddb.foodlist);
+                    templist.Remove(removedfood);
+                    adapter.UpdateAdapter(templist);
                     mListView.Adapter = adapter;
                 
                     if (mToast != null) mToast.Cancel();
@@ -97,7 +112,9 @@ namespace android2
 
             mSearchView.QueryTextChange += (object sender, SearchView.QueryTextChangeEventArgs e) =>
             {
-                mListView.Adapter = new ArrayAdapter<Food>(Context, Android.Resource.Layout.SimpleListItem1, MainActivity.saveddb.foodlist.Where(foo => foo.Name.IndexOf(e.NewText, StringComparison.OrdinalIgnoreCase) >= 0).Select(foo => foo).ToList());
+                templist = MainActivity.saveddb.foodlist.Where(foo => foo.Name.IndexOf(e.NewText, StringComparison.OrdinalIgnoreCase) >= 0).Select(foo => foo).ToList();
+                adapter.UpdateAdapter(templist);
+                mListView.Adapter = adapter;
                 if (MainActivity.saveddb.foodlist.Count > 0) mEmptyView.Text = "No results!";
                 else mEmptyView.Text = "You haven't added any foods!";
             };

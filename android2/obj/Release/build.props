@@ -1,20 +1,37 @@
+<<<<<<< HEAD
 BundleAssemblies=False
+=======
+BundleAssemblies=false
+>>>>>>> Grantas
 AotAssemblies=False
 AndroidAotMode=
 ExplicitCrunch=False
 EnableProguard=False
 UseSharedRuntime=False
+<<<<<<< HEAD
 EmbedAssembliesIntoApk=True
 AndroidLinkMode=Full
+=======
+EmbedAssembliesIntoApk=true
+AndroidLinkMode=SdkOnly
+>>>>>>> Grantas
 AndroidLinkSkip=
 AndroidSdkBuildToolsVersion=23.0.0
 AndroidSdkPath=
 AndroidNdkPath=
 JavaSdkPath=
+<<<<<<< HEAD
 AndroidSequencePointsMode=Normal
 XamarinAndroidVersion=7.3.1-2
 MonoSymbolArchive=True
 AndroidUseLatestPlatformSdk=True
 TargetFrameworkVersion=v6.0
+=======
+AndroidSequencePointsMode=None
+XamarinAndroidVersion=7.3.0-13
+MonoSymbolArchive=False
+AndroidUseLatestPlatformSdk=True
+TargetFrameworkVersion=v7.1
+>>>>>>> Grantas
 AndroidCreatePackagePerAbi=False
 OS=Windows_NT
