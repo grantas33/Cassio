@@ -2,6 +2,10 @@ android2.DayListActivity, CassioApp;md55d72418a81de8ab5a4fe88ef1a8a12c9.DayListA
 android2.DayListActivity, CassioApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md55d72418a81de8ab5a4fe88ef1a8a12c9.DayListActivity
 android2.DayListActivity;md55d72418a81de8ab5a4fe88ef1a8a12c9.DayListActivity
 android2.DayListActivity;md55d72418a81de8ab5a4fe88ef1a8a12c9.DayListActivity
+android2.FoodRowListAdapter, CassioApp;md55d72418a81de8ab5a4fe88ef1a8a12c9.FoodRowListAdapter
+android2.FoodRowListAdapter, CassioApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md55d72418a81de8ab5a4fe88ef1a8a12c9.FoodRowListAdapter
+android2.FoodRowListAdapter;md55d72418a81de8ab5a4fe88ef1a8a12c9.FoodRowListAdapter
+android2.FoodRowListAdapter;md55d72418a81de8ab5a4fe88ef1a8a12c9.FoodRowListAdapter
 android2.FragmentAdapter, CassioApp;md55d72418a81de8ab5a4fe88ef1a8a12c9.FragmentAdapter
 android2.FragmentAdapter, CassioApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md55d72418a81de8ab5a4fe88ef1a8a12c9.FragmentAdapter
 android2.FragmentAdapter;md55d72418a81de8ab5a4fe88ef1a8a12c9.FragmentAdapter
