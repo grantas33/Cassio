@@ -133,6 +133,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateFoodView.cs" />
     <Compile Include="DayListActivity.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="FoodsRepository.cs" />
