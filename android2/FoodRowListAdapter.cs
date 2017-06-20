@@ -41,10 +41,25 @@ namespace android2
             View view = convertView;
             if (view == null) // no view to re-use, create new
                 view = context.LayoutInflater.Inflate(Resource.Layout.FoodInfo, null);
+
             view.FindViewById<TextView>(Resource.Id.foodinfoname).Text = item.Name;
-            view.FindViewById<TextView>(Resource.Id.foodinfomultiplier).Text = item.Multiplier.ToString();
-            view.FindViewById<TextView>(Resource.Id.foodinfocalories).Text = item.Calories.ToString() +"cal.";
-            view.FindViewById<TextView>(Resource.Id.foodinfograms).Text = item.Grams.ToString() + "g";
+            view.FindViewById<TextView>(Resource.Id.foodinfocalories).Text = string.Format("{0} cal.", item.Calories.ToString());
+            view.FindViewById<TextView>(Resource.Id.foodinfograms).Text = string.Format("{0} g.", item.Grams.ToString());
+            view.FindViewById<TextView>(Resource.Id.foodinfocaloriestotal).Text = string.Format("{0} cal.", item.Calories * item.Multiplier);
+            view.FindViewById<TextView>(Resource.Id.foodinfogramstotal).Text = string.Format("{0} g.", item.Grams * item.Multiplier);
+            view.FindViewById<TextView>(Resource.Id.foodinfomultiplier).Text = "x" + item.Multiplier.ToString();
+            if (item.Multiplier > 1)
+            {
+                view.FindViewById<TextView>(Resource.Id.foodinfomultiplier).Visibility =
+                view.FindViewById<TextView>(Resource.Id.foodinfocaloriestotal).Visibility =
+                view.FindViewById<TextView>(Resource.Id.foodinfogramstotal).Visibility = ViewStates.Visible;                    
+            }
+            else
+            {
+                view.FindViewById<TextView>(Resource.Id.foodinfomultiplier).Visibility =
+                view.FindViewById<TextView>(Resource.Id.foodinfocaloriestotal).Visibility =
+                view.FindViewById<TextView>(Resource.Id.foodinfogramstotal).Visibility = ViewStates.Gone;
+            }
             return view;
         }
 

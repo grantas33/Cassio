@@ -35,13 +35,6 @@ namespace android2
             var CalorieEdit = localCalorie.Edit();
             MainActivity.saveddb.foodlist = MainActivity.saveddb.foodlist.OrderBy(foo => foo.Name).ToList();
             var templist = MainActivity.saveddb.foodlist;
-
-           foreach (var i in MainActivity.saveddb.foodlist)
-            {
-                System.Diagnostics.Debug.WriteLine(i);
-                System.Diagnostics.Debug.WriteLine("---");
-            }
-
             var adapter = new FoodRowListAdapter(this.Activity, templist);
             mListView.Adapter = adapter;
             mListView.EmptyView = mEmptyView;
@@ -54,11 +47,7 @@ namespace android2
                 
                 MainActivity.foodsdb.AddFood(food);
                 MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + food.Calories).ToString();
-                foreach (var i in MainActivity.saveddb.foodlist)
-                {
-                    System.Diagnostics.Debug.WriteLine(i);
-                    System.Diagnostics.Debug.WriteLine("---");
-                }
+               
 
                 if (toastMsg == string.Format("Added {0} {1}", counter, MainActivity.foodsdb.GetLast().Name))
                 {

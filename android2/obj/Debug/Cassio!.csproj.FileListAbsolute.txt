@@ -81,6 +81,7 @@ C:\Users\Vartotojas\Desktop\android\android2\android2\obj\Debug\android\assets\C
 C:\Users\Vartotojas\Desktop\android\android2\android2\obj\Debug\android\assets\HtmlAgilityPack.dll.mdb
 C:\Users\Vartotojas\Desktop\android\android2\android2\obj\Debug\android\assets\SQLite-net.dll.mdb
 C:\Users\Vartotojas\Desktop\android\android2\android2\obj\Debug\Cassio!.csprojResolveAssemblyReference.cache
+<<<<<<< HEAD
 C:\Users\Lukas\Source\Repos\Cassio\android2\bin\Debug\CassioApp.dll
 C:\Users\Lukas\Source\Repos\Cassio\android2\bin\Debug\CassioApp.pdb
 C:\Users\Lukas\Source\Repos\Cassio\android2\bin\Debug\android2.Cassio.apk
@@ -163,6 +164,8 @@ C:\Users\Lukas\Source\Repos\Cassio\android2\bin\Debug\CassioApp.dll.mdb
 C:\Users\Lukas\Source\Repos\Cassio\android2\obj\Debug\android\assets\CassioApp.dll.mdb
 C:\Users\Lukas\Source\Repos\Cassio\android2\obj\Debug\android\assets\HtmlAgilityPack.dll.mdb
 C:\Users\Lukas\Source\Repos\Cassio\android2\obj\Debug\android\assets\SQLite-net.dll.mdb
+=======
+>>>>>>> Grantas
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\bin\Debug\CassioApp.dll
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\bin\Debug\CassioApp.pdb
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\bin\Debug\android2.Cassio.apk
