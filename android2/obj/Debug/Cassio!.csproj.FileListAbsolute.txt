@@ -164,6 +164,7 @@ C:\Users\Lukas\Source\Repos\Cassio\android2\bin\Debug\CassioApp.dll.mdb
 C:\Users\Lukas\Source\Repos\Cassio\android2\obj\Debug\android\assets\CassioApp.dll.mdb
 C:\Users\Lukas\Source\Repos\Cassio\android2\obj\Debug\android\assets\HtmlAgilityPack.dll.mdb
 C:\Users\Lukas\Source\Repos\Cassio\android2\obj\Debug\android\assets\SQLite-net.dll.mdb
+<<<<<<< HEAD
 =======
 >>>>>>> Grantas
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\bin\Debug\CassioApp.dll
@@ -249,3 +250,6 @@ C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\bin\Debug\CassioApp
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\CassioApp.dll.mdb
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\HtmlAgilityPack.dll.mdb
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\SQLite-net.dll.mdb
+=======
+C:\Users\Lukas\Source\Repos\Cassio\android2\obj\Debug\res\layout\foodinfo.xml
+>>>>>>> Multiple-scan
