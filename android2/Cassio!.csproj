@@ -136,7 +136,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreateFoodView.cs" />
+    <Compile Include="CreateFoodDialog.cs" />
     <Compile Include="DayListActivity.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="FoodRowListAdapter.cs" />
