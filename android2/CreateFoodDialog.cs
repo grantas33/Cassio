@@ -41,6 +41,7 @@ namespace android2
         public CreateFoodDialog(Context context)
         {
             Context = context;
+            Grams = 100;         //default value
             //SaveDb = MainActivity.saveddb;
         }
 
@@ -91,7 +92,7 @@ namespace android2
                         if (GramsInput.Text != "")
                         {
                             Grams = int.Parse(GramsInput.Text);
-                        }
+                        }                        
                         MainActivity.saveddb.AddFood(new Food(FoodInput.Text, int.Parse(CalInput.Text), Grams));
                         MainActivity.saveddb.UpdateDatabase();
                         Toast.MakeText(Context, string.Format("Added {0} to your food list", FoodInput.Text), ToastLength.Short).Show();
@@ -107,7 +108,7 @@ namespace android2
                     if (GramsInput.Text != string.Empty)
                     {
                         Grams = int.Parse(GramsInput.Text);
-                    }
+                    }                    
                     MainActivity.saveddb.AddFood(new Food(FoodInput.Text, int.Parse(CalInput.Text), Grams));
                     MainActivity.saveddb.UpdateDatabase();
                     Dialog.Dismiss();

@@ -4,8 +4,8 @@
     <ResultingAbi>x86</ResultingAbi>
     <SdkVersion>23</SdkVersion>
   </Device>
-  <Device id="af6d0905">
-    <ResultingAbi>armeabi-v7a</ResultingAbi>
+  <Device id="fb1c9158">
+    <ResultingAbi>arm64-v8a</ResultingAbi>
     <SdkVersion>25</SdkVersion>
   </Device>
 </Devices>
