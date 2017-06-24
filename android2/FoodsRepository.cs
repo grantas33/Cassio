@@ -101,10 +101,12 @@ namespace android2
                 if (foodlist.Count() > 0 && foodlist[foodlist.Count -1].Name == food.Name)
                 {
                     foodlist[foodlist.Count - 1].Multiplier++;
+                   
                     
                  }
                 else
                 {
+
                     foodlist.Add(food);
                     
                 }

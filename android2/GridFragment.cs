@@ -20,9 +20,7 @@ namespace android2
             
         private Toast mToast = null;
         private string toastMsg = "";
-        private int counter = 1;
-        private string startcalories;
-
+        private int counter = 1;      
 
         public GridFragment()
         {
@@ -39,10 +37,6 @@ namespace android2
             var gridview = view.FindViewById<GridView>(Resource.Id.gridview);
             gridview.Adapter = new ImageAdapter(view.Context);
 
-
-            var localCalorie = Application.Context.GetSharedPreferences("Calorie", FileCreationMode.Private);
-            var CalorieEdit = localCalorie.Edit();
-            startcalories = localCalorie.GetString("cal", "0");
 
             gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {
@@ -147,10 +141,6 @@ namespace android2
                 mToast = Toast.MakeText(view.Context, toastMsg, ToastLength.Short);
                 mToast.Show();
 
-                
-                CalorieEdit.PutString("cal", MainActivity.caloriekeeper);
-                CalorieEdit.Apply();
-
             };
            return view;
         }
@@ -158,7 +148,9 @@ namespace android2
         public void ClickActionProcess(string foodname, int calories)
         {
             MainActivity.foodsdb.AddFood(new Food(foodname, calories));
-            MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + calories).ToString();
+            MainActivity.NutritionEdit.PutString("cal", (int.Parse(MainActivity.localNutritionData.GetString("cal", "0")) + calories).ToString());
+            MainActivity.NutritionEdit.Apply();
+            //MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + calories).ToString();
 
         }
 

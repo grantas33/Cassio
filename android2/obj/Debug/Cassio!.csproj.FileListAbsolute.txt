@@ -81,3 +81,12 @@ C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\bin\Debug\CassioApp
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\CassioApp.dll.mdb
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\HtmlAgilityPack.dll.mdb
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\SQLite-net.dll.mdb
+C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\bin\Debug\OxyPlot.dll
+C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\bin\Debug\OxyPlot.pdb
+C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\bin\Debug\OxyPlot.xml
+C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\bin\Debug\OxyPlot.dll.mdb
+C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\OxyPlot.dll.mdb
+C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\res\layout\foodnutritionalinfo.xml
+C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\res\drawable\green_arrow_up.png
+C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\res\drawable\green_arrow_down.png
+C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\res\drawable\green_plus.png

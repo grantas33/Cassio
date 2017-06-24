@@ -1,6 +1,7 @@
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\CassioApp.dll
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\FastAndroidCamera.dll
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\HtmlAgilityPack.dll
+C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\OxyPlot.dll
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\SQLite-net.dll
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\SQLitePCLRaw.batteries_green.dll
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\SQLitePCLRaw.batteries_v2.dll
@@ -39,14 +40,14 @@ C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\a
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Xml.ReaderWriter.dll
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Text.RegularExpressions.dll
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Runtime.Extensions.dll
+C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Reflection.dll
+C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Globalization.dll
+C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Threading.dll
+C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Linq.dll
+C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Reflection.Extensions.dll
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Resources.ResourceManager.dll
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Linq.Expressions.dll
-C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Reflection.dll
-C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Linq.dll
-C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Threading.dll
-C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Globalization.dll
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Collections.Concurrent.dll
-C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Reflection.Extensions.dll
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\Mono.CSharp.dll
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.Runtime.Serialization.dll
 C:\Users\Vartotojas\Desktop\android\android2\Cassio\android2\obj\Debug\android\assets\System.ServiceModel.Internals.dll

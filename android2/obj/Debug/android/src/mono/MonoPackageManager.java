@@ -101,6 +101,7 @@ class MonoPackageManager_Resources {
 		"CassioApp.dll",
 		"FastAndroidCamera.dll",
 		"HtmlAgilityPack.dll",
+		"OxyPlot.dll",
 		"SQLite-net.dll",
 		"SQLitePCLRaw.batteries_green.dll",
 		"SQLitePCLRaw.batteries_v2.dll",

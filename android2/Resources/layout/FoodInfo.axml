@@ -1,67 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:text="FOODNAME"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/foodinfoname"
-            android:layout_gravity="left"
-            android:layout_weight="2"
-            android:textColor="@android:color/black" />
-        <TextView
-            android:text="FOODMULTIPLIER"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/foodinfomultiplier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right" />
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:clickable="true">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="FOODNAME"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/foodinfoname"
+                android:layout_gravity="left"
+                android:layout_weight="2"
+                android:textColor="@android:color/black" />
+            <TextView
+                android:text="FOODMULTIPLIER"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/foodinfomultiplier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="FOODCALORIES"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="2"
+                android:id="@+id/foodinfocalories" />
+            <TextView
+                android:text="FOODGRAMS"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:id="@+id/foodinfograms" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="FOODCALORIESTOTAL"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="2"
+                android:id="@+id/foodinfocaloriestotal" />
+            <TextView
+                android:text="FOODGRAMSTOTAL"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:id="@+id/foodinfogramstotal" />
+        </LinearLayout>
     </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:text="FOODCALORIES"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_weight="2"
-            android:id="@+id/foodinfocalories" />
-        <TextView
-            android:text="FOODGRAMS"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:id="@+id/foodinfograms" />
-    </LinearLayout>
-<LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:text="FOODCALORIESTOTAL"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_weight="2"
-            android:id="@+id/foodinfocaloriestotal" />
-        <TextView
-            android:text="FOODGRAMSTOTAL"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:id="@+id/foodinfogramstotal" />
-    </LinearLayout>
+  <ImageView
+        android:src="@android:drawable/ic_menu_gallery"
+        android:clickable="false"
+        android:focusable="false"
+        android:layout_width="100px"
+        android:layout_height="match_parent"
+        android:id="@+id/greenplus"
+        android:layout_gravity="right"
+        android:visibility="gone"/>
+    <ImageView
+        android:src="@android:drawable/ic_menu_gallery"
+        android:layout_width="100px"
+        android:layout_height="match_parent"
+        android:id="@+id/greenarrow"
+        android:layout_gravity="right" />
 </LinearLayout>
