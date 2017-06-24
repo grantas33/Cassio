@@ -23,6 +23,9 @@ namespace android2
         public EditText CalInput { get; private set; }
         public EditText GramsInput { get; private set; }
         public int Grams { get; set; }
+        public double Carbohydrates { get; set; }
+        public double Protein { get; set; }
+        public double Fat { get; set; }
 
 
         Dialog Dialog { get; set; }
@@ -93,7 +96,7 @@ namespace android2
                         {
                             Grams = int.Parse(GramsInput.Text);
                         }                        
-                        MainActivity.saveddb.AddFood(new Food(FoodInput.Text, int.Parse(CalInput.Text), Grams));
+                        MainActivity.saveddb.AddFood(new Food(FoodInput.Text, int.Parse(CalInput.Text), Grams, Carbohydrates, Protein, Fat));
                         MainActivity.saveddb.UpdateDatabase();
                         Toast.MakeText(Context, string.Format("Added {0} to your food list", FoodInput.Text), ToastLength.Short).Show();
                         Dialog.Dismiss();
@@ -109,7 +112,7 @@ namespace android2
                     {
                         Grams = int.Parse(GramsInput.Text);
                     }                    
-                    MainActivity.saveddb.AddFood(new Food(FoodInput.Text, int.Parse(CalInput.Text), Grams));
+                    MainActivity.saveddb.AddFood(new Food(FoodInput.Text, int.Parse(CalInput.Text), Grams, Carbohydrates, Protein, Fat));
                     MainActivity.saveddb.UpdateDatabase();
                     Dialog.Dismiss();
                     Toast.MakeText(Context, string.Format("Added {0} to your food list", FoodInput.Text), ToastLength.Short).Show();
@@ -182,6 +185,9 @@ namespace android2
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
             WebResponse myResponse;
             HtmlDocument doc = new HtmlDocument();
+            
+            
+
             string foodname = "notset";
             int foodcal = 0;
             var food = new Food(foodname, foodcal);
@@ -211,6 +217,10 @@ namespace android2
                     }
                 }
 
+                Fat = RetrieveNutritionalGrams(doc.DocumentNode.OuterHtml.ToString(), doc.DocumentNode.OuterHtml.IndexOf("Riebalų"));
+                Carbohydrates = RetrieveNutritionalGrams(doc.DocumentNode.OuterHtml.ToString(), doc.DocumentNode.OuterHtml.IndexOf("Angliavandenių"));
+                Protein = RetrieveNutritionalGrams(doc.DocumentNode.OuterHtml.ToString(), doc.DocumentNode.OuterHtml.IndexOf("Baltymų"));
+
                 food = new Food(foodname, foodcal);
 
 
@@ -229,6 +239,30 @@ namespace android2
             }
             return true;
         }
+
+        private double RetrieveNutritionalGrams(string node, int index)
+        {
+            string numbersandcomma = "0123456789,";
+            StringBuilder sb = new StringBuilder();
+            int i = index+60;
+            while((node[i] != ' ') || (node[i+1] != 'g'))
+            {
+                if (numbersandcomma.IndexOf(node[i]) != -1)
+                {
+                    if (node[i] == ',')
+                    {
+                        sb.Append('.');
+                    }
+                    else sb.Append(node[i]);
+                }
+                i++;
+           
+            }
+            System.Diagnostics.Debug.WriteLine(sb.ToString());
+            return double.Parse(sb.ToString());
+        }
+
+        
 
         //protected void OnResume()
         //{

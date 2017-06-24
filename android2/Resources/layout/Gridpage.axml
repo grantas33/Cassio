@@ -8,13 +8,20 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
-    <ListView
+  <!--    <ListView
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:id="@+id/listfoodlog" />
+        android:id="@+id/listfoodlog" /> -->
+      <ExpandableListView
+        android:id="@+id/expandablelistfoodlog"       
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dip" />
       <TextView
         android:id="@+id/emptyfoodlog"
         android:text="Empty!"

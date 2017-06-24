@@ -22,9 +22,12 @@ namespace android2
     [Activity(Label = "android2", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        public static string caloriekeeper;
-
+       
+        // STATINIAI DUOMENYS
         public static StringBuilder daystring = new StringBuilder();
+
+        public static ISharedPreferences localNutritionData = Application.Context.GetSharedPreferences("Nutrition", FileCreationMode.Private);
+        public static ISharedPreferencesEditor NutritionEdit = localNutritionData.Edit();
 
         public static FoodsRepository foodsdb = new FoodsRepository(Path.Combine(
         System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),
@@ -33,7 +36,7 @@ namespace android2
         public static FoodsRepository saveddb = new FoodsRepository(Path.Combine(
         System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),
         "savedfood.db3"));
-
+        //STATINIAI DUOMENYS
 
         void FoodLogButton_Click(object sender, EventArgs e)
         {
@@ -48,8 +51,8 @@ namespace android2
         }
 
         void SaveAndClearButton_Click(object sender, EventArgs e)
-        {
-            var localCalorie = Application.GetSharedPreferences("Calorie", FileCreationMode.Private);
+        {            
+            
             TextView calories = FindViewById<TextView>(Resource.Id.caloriestxt);
             var localDays = Application.Context.GetSharedPreferences("Days", FileCreationMode.Private);
 
@@ -57,7 +60,7 @@ namespace android2
             alert.SetTitle("Confirmation alert");
             alert.SetMessage("Do you really want to save and clear the data?");
             alert.SetPositiveButton("Yes", (senderAlert, args) => {
-                var calorieEdit = localCalorie.Edit();
+                
                 foodsdb.foodlist.Clear();
                 foodsdb.UpdateDatabase();
                 //toast
@@ -75,10 +78,9 @@ namespace android2
                 }
                 else { Toast.MakeText(this, "There is nothing to save!", ToastLength.Short).Show(); }
 
-                calories.Text = "0";
-                caloriekeeper = "0";
-                calorieEdit.PutString("cal", "0");
-                calorieEdit.Apply();
+                calories.Text = "0";                
+                NutritionEdit.PutString("cal", "0");
+                NutritionEdit.Apply();
 
             });
 
@@ -114,12 +116,10 @@ namespace android2
             SetActionBar(toolbar);
             ActionBar.Title = "Cassio!";
 
-            var localCalorie = Application.GetSharedPreferences("Calorie", FileCreationMode.Private);
-            var CalorieEdit = localCalorie.Edit();
             var localDays = Application.Context.GetSharedPreferences("Days", FileCreationMode.Private);
 
             TextView calories = FindViewById<TextView>(Resource.Id.caloriestxt);
-            caloriekeeper = localCalorie.GetString("cal", "0");
+            //caloriekeeper = localCalorie.GetString("cal", "0");
             
             Button logbutt = FindViewById<Button>(Resource.Id.logbutton);
             Button gridbutt = FindViewById<Button>(Resource.Id.gridbutton);
@@ -136,11 +136,11 @@ namespace android2
 
         protected override void OnResume()
         {
-            base.OnResume();
+            base.OnResume();            
             MainActivity.foodsdb.UpdateDatabase();
             MainActivity.saveddb.UpdateDatabase();
             TextView calories = FindViewById<TextView>(Resource.Id.caloriestxt);
-            calories.Text = caloriekeeper;
+            calories.Text = localNutritionData.GetString("cal", "0");
         }
     }
 }

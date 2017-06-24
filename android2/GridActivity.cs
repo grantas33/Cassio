@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using static Android.Widget.ExpandableListView;
 
 namespace android2
 {
@@ -26,30 +27,29 @@ namespace android2
             SetContentView(Resource.Layout.Gridpage);
             Button undolastbutt = FindViewById<Button>(Resource.Id.undolastbutton);
             View emptytext = FindViewById(Resource.Id.emptyfoodlog);
-            ListView mListView = FindViewById<ListView>(Resource.Id.listfoodlog);
+            ExpandableListView mExpandable = FindViewById<ExpandableListView>(Resource.Id.expandablelistfoodlog);
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            mListView.EmptyView = emptytext;
+            mExpandable.EmptyView = emptytext;
+            mExpandable.SetGroupIndicator(null);       
             SetActionBar(toolbar);
             ActionBar.Title = "Food log";
 
-            var adapter = new FoodRowListAdapter(this, MainActivity.foodsdb.foodlist);
-            mListView.Adapter = adapter;
-
+            var adapter = new ExpandableListAdapter(this, MainActivity.foodsdb.foodlist, false);
+            mExpandable.SetAdapter(adapter);
 
 
             undolastbutt.Click += (sender, e) =>
             {
                 if (MainActivity.foodsdb.foodlist.Count() == 0) return;
-                var state = mListView.OnSaveInstanceState();
-                MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) - MainActivity.foodsdb.GetLast().Calories).ToString();
-                CalorieEdit.PutString("cal", MainActivity.caloriekeeper);
-                CalorieEdit.Apply();
+                var state = mExpandable.OnSaveInstanceState();
+                MainActivity.NutritionEdit.PutString("cal", (int.Parse(MainActivity.localNutritionData.GetString("cal", "0")) - MainActivity.foodsdb.GetLast().Calories).ToString());
+                MainActivity.NutritionEdit.Apply();
 
                 MainActivity.foodsdb.DeleteLast();
 
                 adapter.UpdateAdapter(MainActivity.foodsdb.foodlist);
-                mListView.Adapter = adapter;
-                mListView.OnRestoreInstanceState(state);
+                mExpandable.SetAdapter(adapter);
+                mExpandable.OnRestoreInstanceState(state);
             };
 
         }

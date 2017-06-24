@@ -11,17 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/searchviewmyfoods" />
-    <ListView
+    <ExpandableListView
         android:minWidth="25px"
         android:minHeight="25px"
+        android:listSelector="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listviewmyfoods" />
-  <TextView
-    android:id="@+id/emptymyfoodsview"
-    android:text="You haven't added any foods!"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center"
-    />
+        android:id="@+id/expandableviewmyfoods" />
+    <TextView
+        android:id="@+id/emptymyfoodsview"
+        android:text="You haven't added any foods!"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center" />
 </LinearLayout>

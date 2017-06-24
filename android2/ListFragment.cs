@@ -19,35 +19,34 @@ namespace android2
         private Toast mToast = null;
         private string toastMsg = "";
         private int counter = 1;
-        ListView mListView;
+        ExpandableListView mExpanded;
         SearchView mSearchView;
         public ListFragments() { }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             
-           
             var view = inflater.Inflate(Resource.Layout.Listmyfoods, container, false);
-            mListView = view.FindViewById<ListView>(Resource.Id.listviewmyfoods);
+            mExpanded = view.FindViewById<ExpandableListView>(Resource.Id.expandableviewmyfoods);
             mSearchView = view.FindViewById<SearchView>(Resource.Id.searchviewmyfoods);
             TextView mEmptyView = view.FindViewById<TextView>(Resource.Id.emptymyfoodsview);
-            var localCalorie = Application.Context.GetSharedPreferences("Calorie", FileCreationMode.Private);
-            var CalorieEdit = localCalorie.Edit();
+            ImageView plussign = view.FindViewById<ImageView>(Resource.Id.greenplus);                            //prideti nauja maista
             MainActivity.saveddb.foodlist = MainActivity.saveddb.foodlist.OrderBy(foo => foo.Name).ToList();
             var templist = MainActivity.saveddb.foodlist;
-            var adapter = new FoodRowListAdapter(this.Activity, templist);
-            mListView.Adapter = adapter;
-            mListView.EmptyView = mEmptyView;
+            var adapter = new ExpandableListAdapter(this.Activity, templist, true);
+            mExpanded.SetAdapter(adapter);
+            mExpanded.EmptyView = mEmptyView;
+            mExpanded.SetGroupIndicator(null);
 
-            mListView.ItemClick += (object sender, ItemClickEventArgs e) =>
-            {
+            mExpanded.GroupClick += (object sender, ExpandableListView.GroupClickEventArgs e) =>
+             {
 
-                Food food = new Food(templist[e.Position]);
+                Food food = new Food(templist[e.GroupPosition]);
 
                 
                 MainActivity.foodsdb.AddFood(food);
-                MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + food.Calories).ToString();
-               
+                MainActivity.NutritionEdit.PutString("cal", (int.Parse(MainActivity.localNutritionData.GetString("cal", "0")) + food.Calories).ToString());
+                MainActivity.NutritionEdit.Apply();
 
                 if (toastMsg == string.Format("Added {0} {1}", counter, MainActivity.foodsdb.GetLast().Name))
                 {
@@ -64,17 +63,15 @@ namespace android2
                 mToast = Toast.MakeText(view.Context, toastMsg, ToastLength.Short);
                 mToast.Show();
 
-                CalorieEdit.PutString("cal", MainActivity.caloriekeeper);
-                CalorieEdit.Apply();
-
             };
 
-            mListView.ItemLongClick += (object sender, ItemLongClickEventArgs e) =>
+            mExpanded.ItemLongClick += (object sender, ItemLongClickEventArgs e) =>
             {
+                
                 AlertDialog.Builder alert = new AlertDialog.Builder(view.Context);
                 Food removedfood = templist[e.Position];
                 alert.SetTitle("Confirmation alert");
-                alert.SetMessage(string.Format("Remove {0} from the list?", removedfood.Name));
+                alert.SetMessage(string.Format("Remove {0} from the list?", removedfood));
                 alert.SetPositiveButton("Yes", (senderAlert, args) =>
                 {
 
@@ -83,10 +80,10 @@ namespace android2
 
                     templist.Remove(removedfood);
                     adapter.UpdateAdapter(templist);
-                    mListView.Adapter = adapter;
+                    mExpanded.SetAdapter(adapter);
                 
                     if (mToast != null) mToast.Cancel();
-                    mToast = Toast.MakeText(view.Context, string.Format("Removed {0}", removedfood ), ToastLength.Short);
+                    mToast = Toast.MakeText(view.Context, string.Format("Removed {0}", removedfood.Name ), ToastLength.Short);
                     mToast.Show();
                 });
 
@@ -103,7 +100,7 @@ namespace android2
             {
                 templist = MainActivity.saveddb.foodlist.Where(foo => foo.Name.IndexOf(e.NewText, StringComparison.OrdinalIgnoreCase) >= 0).Select(foo => foo).ToList();
                 adapter.UpdateAdapter(templist);
-                mListView.Adapter = adapter;
+                mExpanded.SetAdapter(adapter);
                 if (MainActivity.saveddb.foodlist.Count > 0) mEmptyView.Text = "No results!";
                 else mEmptyView.Text = "You haven't added any foods!";
             };
