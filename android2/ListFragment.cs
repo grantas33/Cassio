@@ -30,7 +30,6 @@ namespace android2
             mExpanded = view.FindViewById<ExpandableListView>(Resource.Id.expandableviewmyfoods);
             mSearchView = view.FindViewById<SearchView>(Resource.Id.searchviewmyfoods);
             TextView mEmptyView = view.FindViewById<TextView>(Resource.Id.emptymyfoodsview);
-            ImageView plussign = view.FindViewById<ImageView>(Resource.Id.greenplus);                            //prideti nauja maista
             MainActivity.saveddb.foodlist = MainActivity.saveddb.foodlist.OrderBy(foo => foo.Name).ToList();
             var templist = MainActivity.saveddb.foodlist;
             var adapter = new ExpandableListAdapter(this.Activity, templist, true);
@@ -40,10 +39,12 @@ namespace android2
 
             mExpanded.GroupClick += (object sender, ExpandableListView.GroupClickEventArgs e) =>
              {
+                ImageView plussign = e.ClickedView.FindViewById<ImageView>(Resource.Id.greenplus);                               //animacija
+                Android.Views.Animations.AlphaAnimation plusClick = new Android.Views.Animations.AlphaAnimation(1F, 0.8F);
+                plusClick.Duration = 150;
+                plussign.StartAnimation(plusClick);
 
-                Food food = new Food(templist[e.GroupPosition]);
-
-                
+                Food food = new Food(templist[e.GroupPosition]);           
                 MainActivity.foodsdb.AddFood(food);
                 MainActivity.NutritionEdit.PutString("cal", (int.Parse(MainActivity.localNutritionData.GetString("cal", "0")) + food.Calories).ToString());
                 MainActivity.NutritionEdit.Apply();
