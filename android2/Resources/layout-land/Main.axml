@@ -34,37 +34,40 @@
             android:textStyle="normal"
             android:maxLength="5" />
     </LinearLayout>
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <Button
         android:text="Choose food"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:id="@+id/gridbutton" />
     <Button
         android:text="Create food"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:id="@+id/manualbutton" />
     <Button
         android:text="Food log"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:id="@+id/logbutton" />
     <Button
         android:text="Daily view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/dailyviewbutton" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="center|bottom"
-        android:orientation="vertical">
-        <Button
-            android:text="Save and clear data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/clearbutton"
-            android:layout_gravity="bottom" />
-    </LinearLayout>
+        android:id="@+id/dailyviewbutton" />
+    <Button
+        android:text="Save and clear data"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/clearbutton"
+        android:layout_weight="1" />
+  </LinearLayout>
+    
 </LinearLayout>
