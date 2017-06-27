@@ -17,98 +17,30 @@ using System.Data;
 namespace android2
 {
     
-    public class FoodsRepository : SQLiteConnection
+    public class FoodsRepository: Repository<Food> 
     {
- 
-        object locker = new object();
-        public List<Food> foodlist { get; set; }
-        public bool update { get; set; }
 
-        public FoodsRepository(string path) : base(path)
+        public FoodsRepository(string path) : base(path) { }           
+
+        public override void DeleteData(int position)
         {
-            
-            CreateTable<Food>();
-            foodlist = Table<Food>().ToList();
-            update = false;
-        }
-
-        public void UpdateDatabase()
-        {
-            if (update == false) return;
-            lock (locker)
-            {
-               this.DeleteAll<Food>();
-               // UpdateAll(foodlist);
-                InsertAll(foodlist);
-                update = false;
-                   
-            }
-        }
-
-        //Get all Foods
-        public IEnumerable<Food> GetFoods()
-        {
-            lock (locker)
-            {
-                return Table<Food>(); //Careful with ToList calls on databases!
-            } 
-        }
-
-
-       public Food GetLast()
-        {
-           return foodlist[foodlist.Count - 1];
-        }
-
-        public void DeleteFood(int position)
-        {
-            if (foodlist[position].Multiplier > 1) foodlist[position].Multiplier--;
-            else foodlist.RemoveAt(position);
+            if (datalist[position].Multiplier > 1) datalist[position].Multiplier--;
+            else datalist.RemoveAt(position);
 
             update = true;
-        }
-
-        public void DeleteFood(Food food)
-        {
-
-            foodlist.Remove(food);
-
-            update = true;
-        }
-
-        //Delete last Food
-        public void DeleteLast()
-        {
-            if(foodlist.Count() == 0) { return; }
-            if (foodlist[foodlist.Count - 1].Multiplier > 1)
-            {
-                foodlist[foodlist.Count - 1].Multiplier--;
-                
-            }
-            else
-            {
-                foodlist.RemoveAt(foodlist.Count - 1);
-                
-            }
-            update = true;
-            
         }
 
         //Add new Food to DB
-        public void AddFood(Food food)
+        public override void AddData(Food data)       
         {
  
-                if (foodlist.Count() > 0 && foodlist[foodlist.Count -1].Name == food.Name)
+                if (datalist.Count() > 0 && datalist[datalist.Count -1].Name == data.Name)
                 {
-                    foodlist[foodlist.Count - 1].Multiplier++;
-                   
-                    
-                 }
+                    datalist[datalist.Count - 1].Multiplier++;
+                }
                 else
                 {
-
-                    foodlist.Add(food);
-                    
+                    datalist.Add(data);                    
                 }
             update = true;
            

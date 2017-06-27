@@ -61,7 +61,7 @@ namespace android2
             alert.SetMessage("Do you really want to save and clear the data?");
             alert.SetPositiveButton("Yes", (senderAlert, args) => {
                 
-                foodsdb.foodlist.Clear();
+                foodsdb.datalist.Clear();
                 foodsdb.UpdateDatabase();
                 //toast
                 if (calories.Text != "0")

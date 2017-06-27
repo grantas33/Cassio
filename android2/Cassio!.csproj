@@ -140,7 +140,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateFoodDialog.cs" />
+    <Compile Include="Day.cs" />
     <Compile Include="DayListActivity.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="ExpandableListAdapter.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="FoodRowListAdapter.cs" />

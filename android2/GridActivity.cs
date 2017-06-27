@@ -34,20 +34,20 @@ namespace android2
             SetActionBar(toolbar);
             ActionBar.Title = "Food log";
 
-            var adapter = new ExpandableListAdapter(this, MainActivity.foodsdb.foodlist, false);
+            var adapter = new ExpandableListAdapter(this, MainActivity.foodsdb.datalist, false);
             mExpandable.SetAdapter(adapter);
 
 
             undolastbutt.Click += (sender, e) =>
             {
-                if (MainActivity.foodsdb.foodlist.Count() == 0) return;
+                if (MainActivity.foodsdb.datalist.Count() == 0) return;
                 var state = mExpandable.OnSaveInstanceState();
                 MainActivity.NutritionEdit.PutString("cal", (int.Parse(MainActivity.localNutritionData.GetString("cal", "0")) - MainActivity.foodsdb.GetLast().Calories).ToString());
                 MainActivity.NutritionEdit.Apply();
 
-                MainActivity.foodsdb.DeleteLast();
+                MainActivity.foodsdb.DeleteData(MainActivity.foodsdb.datalist.Count() - 1);
 
-                adapter.UpdateAdapter(MainActivity.foodsdb.foodlist);
+                adapter.UpdateAdapter(MainActivity.foodsdb.datalist);
                 mExpandable.SetAdapter(adapter);
                 mExpandable.OnRestoreInstanceState(state);
             };

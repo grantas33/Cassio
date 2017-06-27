@@ -85,18 +85,18 @@ namespace android2
             }
             else
             {
-                if (MainActivity.saveddb.foodlist.Where(foo => String.Equals(foo.Name, FoodInput.Text, StringComparison.OrdinalIgnoreCase)).Count() > 0)
+                if (MainActivity.saveddb.datalist.Where(foo => String.Equals(foo.Name, FoodInput.Text, StringComparison.OrdinalIgnoreCase)).Count() > 0)
                 {
                     AlertDialog.Builder secondalert = new AlertDialog.Builder(Context);
                     secondalert.SetTitle("This food already exists in your database. Overwrite?");
                     secondalert.SetPositiveButton("Yes", (s, ea) =>
                     {
-                        MainActivity.saveddb.DeleteFood(MainActivity.saveddb.foodlist.Where(foo => String.Equals(foo.Name, FoodInput.Text, StringComparison.OrdinalIgnoreCase)).FirstOrDefault());
+                        MainActivity.saveddb.DeleteData(MainActivity.saveddb.datalist.Where(foo => String.Equals(foo.Name, FoodInput.Text, StringComparison.OrdinalIgnoreCase)).FirstOrDefault());
                         if (GramsInput.Text != "")
                         {
                             Grams = int.Parse(GramsInput.Text);
                         }                        
-                        MainActivity.saveddb.AddFood(new Food(FoodInput.Text, int.Parse(CalInput.Text), Grams, Carbohydrates, Protein, Fat));
+                        MainActivity.saveddb.AddData(new Food(FoodInput.Text, int.Parse(CalInput.Text), Grams, Carbohydrates, Protein, Fat));
                         MainActivity.saveddb.UpdateDatabase();
                         Toast.MakeText(Context, string.Format("Added {0} to your food list", FoodInput.Text), ToastLength.Short).Show();
                         Dialog.Dismiss();
@@ -112,7 +112,7 @@ namespace android2
                     {
                         Grams = int.Parse(GramsInput.Text);
                     }                    
-                    MainActivity.saveddb.AddFood(new Food(FoodInput.Text, int.Parse(CalInput.Text), Grams, Carbohydrates, Protein, Fat));
+                    MainActivity.saveddb.AddData(new Food(FoodInput.Text, int.Parse(CalInput.Text), Grams, Carbohydrates, Protein, Fat));
                     MainActivity.saveddb.UpdateDatabase();
                     Dialog.Dismiss();
                     Toast.MakeText(Context, string.Format("Added {0} to your food list", FoodInput.Text), ToastLength.Short).Show();

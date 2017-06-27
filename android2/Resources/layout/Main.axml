@@ -31,7 +31,8 @@
             android:textColor="#E8F5E9"
             android:layout_gravity="center_horizontal"
             android:typeface="normal"
-            android:textStyle="normal" />
+            android:textStyle="normal"
+            android:maxLength="5" />
     </LinearLayout>
     <Button
         android:text="Choose food"
