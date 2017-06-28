@@ -147,7 +147,7 @@ namespace android2
 
         public void ClickActionProcess(string foodname, int calories)
         {
-            MainActivity.foodsdb.AddFood(new Food(foodname, calories));
+            MainActivity.foodsdb.AddData(new Food(foodname, calories));
             MainActivity.NutritionEdit.PutString("cal", (int.Parse(MainActivity.localNutritionData.GetString("cal", "0")) + calories).ToString());
             MainActivity.NutritionEdit.Apply();
             //MainActivity.caloriekeeper = (int.Parse(MainActivity.caloriekeeper) + calories).ToString();

@@ -143,10 +143,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateFoodDialog.cs" />
+    <Compile Include="Day.cs" />
     <Compile Include="DayListActivity.cs" />
-    <Compile Include="ExpandableListAdapter.cs" />
+    <Compile Include="DayListAdapter.cs" />
+    <Compile Include="Repository.cs" />
+    <Compile Include="FoodListAdapter.cs" />
     <Compile Include="Food.cs" />
-    <Compile Include="FoodRowListAdapter.cs" />
     <Compile Include="FoodsRepository.cs" />
     <Compile Include="FragmentAdapter.cs" />
     <Compile Include="GridActivity.cs" />
@@ -182,10 +184,16 @@
     <AndroidResource Include="Resources\layout\CreateFoodAlert.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\FoodInfo.axml">
+    <AndroidResource Include="Resources\layout\FoodInfoHeader.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\FoodNutritionalInfo.axml">
+    <AndroidResource Include="Resources\layout\FoodInfoChild.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\DayInfoHeader.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\DayInfoChild.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

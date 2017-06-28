@@ -26,9 +26,12 @@ namespace android2
     [Activity(Label = "android2", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-       
+
         // STATINIAI DUOMENYS
-        public static StringBuilder daystring = new StringBuilder();
+
+        public static Repository<Day> daysdb = new Repository<Day>(Path.Combine(
+        System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),
+        "daylog.db3"));
 
         public static ISharedPreferences localNutritionData = Application.Context.GetSharedPreferences("Nutrition", FileCreationMode.Private);
         public static ISharedPreferencesEditor NutritionEdit = localNutritionData.Edit();
@@ -64,21 +67,16 @@ namespace android2
             alert.SetTitle("Confirmation alert");
             alert.SetMessage("Do you really want to save and clear the data?");
             alert.SetPositiveButton("Yes", (senderAlert, args) => {
-                
-                foodsdb.foodlist.Clear();
+
+                foodsdb.ClearAll();
                 foodsdb.UpdateDatabase();
                 //toast
                 if (calories.Text != "0")
                 {
                     Toast.MakeText(this, "Saved!", ToastLength.Short).Show();
-                    daystring.Append(calories.Text);
 
-                    //putting day calories
-
-                    daystring.Append(string.Format(" cal., {0}.{1}.{2};", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day));
-                    var dayEdit = localDays.Edit();
-                    dayEdit.PutString("days", daystring.ToString());
-                    dayEdit.Apply();
+                    daysdb.AddData(new Day(DateTime.Now, int.Parse(calories.Text), 0, 0, 0));
+                    daysdb.UpdateDatabase();
                 }
                 else { Toast.MakeText(this, "There is nothing to save!", ToastLength.Short).Show(); }
 

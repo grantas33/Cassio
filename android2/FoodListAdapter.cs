@@ -13,7 +13,7 @@ using Java.Lang;
 
 namespace android2
 {
-    class ExpandableListAdapter : BaseExpandableListAdapter
+    class FoodListAdapter : BaseExpandableListAdapter
     {
 
         readonly Activity Context;
@@ -21,7 +21,7 @@ namespace android2
         protected List<Food> FoodList { get; set; }
         bool hasAddition { get; set; }
         
-        public ExpandableListAdapter(Activity newContext, List<Food> newList, bool hasaddition) : base()
+        public FoodListAdapter(Activity newContext, List<Food> newList, bool hasaddition) : base()
 		{
             Context = newContext;
             FoodList = newList;
@@ -62,7 +62,7 @@ namespace android2
             View row = convertView;
             if (row == null)
             {
-                row = Context.LayoutInflater.Inflate(Resource.Layout.FoodNutritionalInfo, null);
+                row = Context.LayoutInflater.Inflate(Resource.Layout.FoodInfoChild, null);
             }
 
             row.FindViewById<TextView>(Resource.Id.foodinfocarbs).Text = string.Format("Carbohydrates: {0} g", item.Carbohydrates);
@@ -92,7 +92,7 @@ namespace android2
             View view = convertView;
             if (view == null)
             {  
-                view = Context.LayoutInflater.Inflate(Resource.Layout.FoodInfo, parent, false);
+                view = Context.LayoutInflater.Inflate(Resource.Layout.FoodInfoHeader, parent, false);
             }
 
             ImageView listHeaderPlusSign = (ImageView)view.FindViewById(Resource.Id.greenplus);

@@ -30,21 +30,22 @@ namespace android2
             mExpanded = view.FindViewById<ExpandableListView>(Resource.Id.expandableviewmyfoods);
             mSearchView = view.FindViewById<SearchView>(Resource.Id.searchviewmyfoods);
             TextView mEmptyView = view.FindViewById<TextView>(Resource.Id.emptymyfoodsview);
-            ImageView plussign = view.FindViewById<ImageView>(Resource.Id.greenplus);                            //prideti nauja maista
-            MainActivity.saveddb.foodlist = MainActivity.saveddb.foodlist.OrderBy(foo => foo.Name).ToList();
-            var templist = MainActivity.saveddb.foodlist;
-            var adapter = new ExpandableListAdapter(this.Activity, templist, true);
+            MainActivity.saveddb.datalist = MainActivity.saveddb.datalist.OrderBy(foo => foo.Name).ToList();
+            var templist = MainActivity.saveddb.datalist;
+            var adapter = new FoodListAdapter(this.Activity, templist, true);
             mExpanded.SetAdapter(adapter);
             mExpanded.EmptyView = mEmptyView;
             mExpanded.SetGroupIndicator(null);
 
             mExpanded.GroupClick += (object sender, ExpandableListView.GroupClickEventArgs e) =>
              {
+                ImageView plussign = e.ClickedView.FindViewById<ImageView>(Resource.Id.greenplus);                               //animacija
+                Android.Views.Animations.AlphaAnimation plusClick = new Android.Views.Animations.AlphaAnimation(1F, 0.8F);
+                plusClick.Duration = 150;
+                plussign.StartAnimation(plusClick);
 
-                Food food = new Food(templist[e.GroupPosition]);
-
-                
-                MainActivity.foodsdb.AddFood(food);
+                Food food = new Food(templist[e.GroupPosition]);           
+                MainActivity.foodsdb.AddData(food);
                 MainActivity.NutritionEdit.PutString("cal", (int.Parse(MainActivity.localNutritionData.GetString("cal", "0")) + food.Calories).ToString());
                 MainActivity.NutritionEdit.Apply();
 
@@ -75,7 +76,7 @@ namespace android2
                 alert.SetPositiveButton("Yes", (senderAlert, args) =>
                 {
 
-                    MainActivity.saveddb.DeleteFood(removedfood);
+                    MainActivity.saveddb.DeleteData(removedfood);
                     MainActivity.saveddb.UpdateDatabase();
 
                     templist.Remove(removedfood);
@@ -98,10 +99,10 @@ namespace android2
 
             mSearchView.QueryTextChange += (object sender, SearchView.QueryTextChangeEventArgs e) =>
             {
-                templist = MainActivity.saveddb.foodlist.Where(foo => foo.Name.IndexOf(e.NewText, StringComparison.OrdinalIgnoreCase) >= 0).Select(foo => foo).ToList();
+                templist = MainActivity.saveddb.datalist.Where(foo => foo.Name.IndexOf(e.NewText, StringComparison.OrdinalIgnoreCase) >= 0).Select(foo => foo).ToList();
                 adapter.UpdateAdapter(templist);
                 mExpanded.SetAdapter(adapter);
-                if (MainActivity.saveddb.foodlist.Count > 0) mEmptyView.Text = "No results!";
+                if (MainActivity.saveddb.datalist.Count > 0) mEmptyView.Text = "No results!";
                 else mEmptyView.Text = "You haven't added any foods!";
             };
 

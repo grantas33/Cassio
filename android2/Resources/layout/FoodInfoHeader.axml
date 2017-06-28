@@ -74,7 +74,7 @@
     <ImageView
         android:src="@android:drawable/ic_menu_gallery"
         android:clickable="false"
-        android:focusable="false"
+        android:focusable="false" 
         android:layout_width="100px"
         android:layout_height="match_parent"
         android:id="@+id/greenplus"
