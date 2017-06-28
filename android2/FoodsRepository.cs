@@ -32,6 +32,42 @@ namespace android2
             update = false;
         }
 
+        public double GetCarbohydrates()
+        {
+            double sum = 0;
+
+            foreach(Food food in foodlist)
+            {
+                sum += (food.Carbohydrates / 100) * food.Grams * food.Multiplier;
+            }
+
+            return sum;
+        }
+
+        public double GetProtein()
+        {
+            double sum = 0;
+
+            foreach (Food food in foodlist)
+            {
+                sum += (food.Protein / 100) * food.Grams * food.Multiplier;
+            }
+
+            return sum;
+        }
+
+        public double GetFat()
+        {
+            double sum = 0;
+
+            foreach (Food food in foodlist)
+            {
+                sum += (food.Fat / 100) * food.Grams * food.Multiplier;
+            }
+
+            return sum;
+        }
+
         public void UpdateDatabase()
         {
             if (update == false) return;

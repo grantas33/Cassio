@@ -16,6 +16,10 @@ using System.Xml;
 using HtmlAgilityPack;
 using System.Net;
 using System.Threading.Tasks;
+using OxyPlot;
+using OxyPlot.Xamarin.Android;
+using OxyPlot.Axes;
+using OxyPlot.Series;
 
 namespace android2
 {
@@ -110,10 +114,14 @@ namespace android2
             base.OnCreate(bundle);
             MobileBarcodeScanner.Initialize(Application);
 
+
             // Set our view from the "main" layout resource
             SetContentView (Resource.Layout.Main);
+            
+
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
+            UpdateChart();
             ActionBar.Title = "Cassio!";
 
             var localDays = Application.Context.GetSharedPreferences("Days", FileCreationMode.Private);
@@ -134,6 +142,27 @@ namespace android2
             manualbutt.Click += CreateFoodButton_Click;
         }
 
+        private void UpdateChart()
+        {
+            PlotView view = FindViewById<PlotView>(Resource.Id.plot_view);
+            view.Model = CreatePlotModel();
+
+        }
+
+        private PlotModel CreatePlotModel()
+        {
+            var plotModel = new PlotModel { Title = "Nutrients" };
+            dynamic series = new PieSeries { StrokeThickness = 2.0, InsideLabelPosition = 0.8, AngleSpan = 360, StartAngle = 0 };
+            
+            series.Slices.Add(new PieSlice("Fat", foodsdb.GetFat()) { IsExploded = false, Fill = OxyColors.PaleVioletRed });
+            series.Slices.Add(new PieSlice("Protein", foodsdb.GetProtein()) { IsExploded = true});
+            series.Slices.Add(new PieSlice("Carbohydrates", foodsdb.GetCarbohydrates()) { IsExploded = true });
+
+            plotModel.Series.Add(series);
+
+            return plotModel;
+        }
+
         protected override void OnResume()
         {
             base.OnResume();            
@@ -141,6 +170,7 @@ namespace android2
             MainActivity.saveddb.UpdateDatabase();
             TextView calories = FindViewById<TextView>(Resource.Id.caloriestxt);
             calories.Text = localNutritionData.GetString("cal", "0");
+            UpdateChart();
         }
     }
 }

@@ -23,9 +23,9 @@ namespace android2
 
         public string Name { get; set; }
         public int Calories { get; set; }
-        public int Multiplier { get; set; }
+        public int Multiplier { get; set; } //TODO: Do we really need this?
         public int Grams { get; set; }
-        public double Carbohydrates { get; set; }
+        public double Carbohydrates { get; set; } //per 100g
         public double Protein { get; set; }
         public double Fat { get; set; }
 
