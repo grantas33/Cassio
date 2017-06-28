@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace android2
 {
-    class Day
+    public class Day
     {
         public DateTime Date { get; set; }
         public int Calories { get; set; }

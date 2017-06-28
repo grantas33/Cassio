@@ -54,6 +54,12 @@ namespace android2
             return datalist[datalist.Count - 1];
         }
 
+        public void ClearAll()
+        {
+            datalist.Clear();
+            update = true;
+        }
+
         public virtual void DeleteData(int position)
         {
             datalist.RemoveAt(position);

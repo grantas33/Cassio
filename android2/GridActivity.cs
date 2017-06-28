@@ -34,7 +34,7 @@ namespace android2
             SetActionBar(toolbar);
             ActionBar.Title = "Food log";
 
-            var adapter = new ExpandableListAdapter(this, MainActivity.foodsdb.datalist, false);
+            var adapter = new FoodListAdapter(this, MainActivity.foodsdb.datalist, false);
             mExpandable.SetAdapter(adapter);
 
 

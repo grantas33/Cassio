@@ -32,7 +32,7 @@ namespace android2
             TextView mEmptyView = view.FindViewById<TextView>(Resource.Id.emptymyfoodsview);
             MainActivity.saveddb.datalist = MainActivity.saveddb.datalist.OrderBy(foo => foo.Name).ToList();
             var templist = MainActivity.saveddb.datalist;
-            var adapter = new ExpandableListAdapter(this.Activity, templist, true);
+            var adapter = new FoodListAdapter(this.Activity, templist, true);
             mExpanded.SetAdapter(adapter);
             mExpanded.EmptyView = mEmptyView;
             mExpanded.SetGroupIndicator(null);

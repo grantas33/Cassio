@@ -24,12 +24,12 @@ namespace android2
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
             ActionBar.Title = "Daily view";
-            ListView lv = FindViewById<ListView>(Resource.Id.listdays);
+            ExpandableListView lv = FindViewById<ExpandableListView>(Resource.Id.listdays);
             TextView empty = FindViewById<TextView>(Resource.Id.emptydayview);
             Button clearfinalbutt = FindViewById<Button>(Resource.Id.clearfinalbutton);
-            var localDays = Application.Context.GetSharedPreferences("Days", FileCreationMode.Private);
-            string[] alldays = localDays.GetString("days", "").Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-            lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, alldays);
+            var adapter = new DayListAdapter(this, MainActivity.daysdb.datalist);
+            lv.SetAdapter(adapter);
+            lv.SetGroupIndicator(null);
             lv.EmptyView = empty;
             
             clearfinalbutt.Click += (sender, e) =>
@@ -38,12 +38,11 @@ namespace android2
                 alert.SetTitle("Confirmation alert");
                 alert.SetMessage("Do you really want erase all history data?");
                 alert.SetPositiveButton("Yes", (senderAlert, args) => {
-                    var daysEdit = localDays.Edit();
-                    daysEdit.Remove("days");
-                    MainActivity.daystring.Clear();
-                    daysEdit.Apply();
+                    MainActivity.daysdb.ClearAll();
+                    MainActivity.daysdb.UpdateDatabase();
                     Toast.MakeText(this, "History cleared!", ToastLength.Short).Show();
-                    lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, new string[] { });
+                    adapter.UpdateAdapter(MainActivity.daysdb.datalist);
+                    lv.SetAdapter(adapter);
                 });
 
                 alert.SetNegativeButton("No", (senderAlert, args) => {
