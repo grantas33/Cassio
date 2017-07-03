@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:text="CARBS"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/foodinfocarbs" />
-    <TextView
-        android:text="PROTEIN"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/foodinfoprotein" />
-    <TextView
-        android:text="FAT"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/foodinfofat" />
+        android:layout_height="match_parent">
+        <TextView
+            android:text="CARBS"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/foodinfocarbs"
+            android:textColor="#2186FF" />
+        <TextView
+            android:text="PROTEIN"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/foodinfoprotein"
+            android:textColor="#3ABB21" />
+        <TextView
+            android:text="FAT"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/foodinfofat"
+            android:textColor="#ED2A2A" />
+    </LinearLayout>
+    <OxyPlot.Xamarin.Android.PlotView
+        android:id="@+id/foodinfo_plot_view"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
 </LinearLayout>

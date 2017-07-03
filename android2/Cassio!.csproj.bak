@@ -17,7 +17,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -75,6 +75,9 @@
     <Reference Include="mscorlib" />
     <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
       <HintPath>..\packages\OxyPlot.Core.1.0.0\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1+Xamarin.iOS10\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Xamarin.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Xamarin.Android.1.0.0\lib\MonoAndroid10\OxyPlot.Xamarin.Android.dll</HintPath>
     </Reference>
     <Reference Include="SQLite-net, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\sqlite-net-pcl.1.3.3\lib\netstandard1.1\SQLite-net.dll</HintPath>
@@ -140,10 +143,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateFoodDialog.cs" />
+    <Compile Include="Day.cs" />
     <Compile Include="DayListActivity.cs" />
-    <Compile Include="ExpandableListAdapter.cs" />
+    <Compile Include="DayListAdapter.cs" />
+    <Compile Include="Repository.cs" />
+    <Compile Include="FoodListAdapter.cs" />
     <Compile Include="Food.cs" />
-    <Compile Include="FoodRowListAdapter.cs" />
     <Compile Include="FoodsRepository.cs" />
     <Compile Include="FragmentAdapter.cs" />
     <Compile Include="GridActivity.cs" />
@@ -179,10 +184,16 @@
     <AndroidResource Include="Resources\layout\CreateFoodAlert.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\FoodInfo.axml">
+    <AndroidResource Include="Resources\layout\FoodInfoHeader.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\FoodNutritionalInfo.axml">
+    <AndroidResource Include="Resources\layout\FoodInfoChild.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\DayInfoHeader.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\DayInfoChild.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

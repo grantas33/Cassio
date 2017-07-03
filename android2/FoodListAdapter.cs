@@ -10,6 +10,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Java.Lang;
+using OxyPlot;
+using OxyPlot.Series;
+using OxyPlot.Xamarin.Android;
 
 namespace android2
 {
@@ -65,13 +68,31 @@ namespace android2
                 row = Context.LayoutInflater.Inflate(Resource.Layout.FoodInfoChild, null);
             }
 
-            row.FindViewById<TextView>(Resource.Id.foodinfocarbs).Text = string.Format("Carbohydrates: {0} g", item.Carbohydrates);
-            row.FindViewById<TextView>(Resource.Id.foodinfoprotein).Text = string.Format("Protein: {0} g", item.Protein);
-            row.FindViewById<TextView>(Resource.Id.foodinfofat).Text = string.Format("Fat: {0} g", item.Fat);
-
-
+            row.FindViewById<TextView>(Resource.Id.foodinfocarbs).Text = string.Format("Carbohydrates: {0} g", item.Carbohydrates * item.Multiplier);
+            row.FindViewById<TextView>(Resource.Id.foodinfoprotein).Text = string.Format("Protein: {0} g", item.Protein * item.Multiplier);
+            row.FindViewById<TextView>(Resource.Id.foodinfofat).Text = string.Format("Fat: {0} g", item.Fat * item.Multiplier);
+            row.FindViewById<PlotView>(Resource.Id.foodinfo_plot_view).Model = CreatePlotModel(item);
+           
 
             return row;
+        }
+
+        private PlotModel CreatePlotModel(Food item)
+        {
+            var plotModel = new PlotModel();
+            var series = new PieSeries();
+
+            series.Slices.Add(new PieSlice("", item.Fat) { IsExploded = false, Fill = OxyColors.PaleVioletRed });
+            series.Slices.Add(new PieSlice("", item.Protein) { IsExploded = true, Fill = OxyColors.LightGreen });
+            series.Slices.Add(new PieSlice("", item.Carbohydrates) { IsExploded = true, Fill = OxyColors.DeepSkyBlue });
+            series.OutsideLabelFormat = "";
+            series.TickHorizontalLength = 0.00;
+            series.TickRadialLength = 0.00;
+            
+
+            plotModel.Series.Add(series);
+
+            return plotModel;
         }
 
         public override Java.Lang.Object GetGroup(int groupPosition)
