@@ -10,11 +10,12 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using static Android.Widget.ExpandableListView;
+using Android.Support.V7.App;
 
 namespace android2
 {
     [Activity(Label = "GridActivity")]
-    public class GridActivity : Activity
+    public class GridActivity : AppCompatActivity
     {
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -28,11 +29,15 @@ namespace android2
             Button undolastbutt = FindViewById<Button>(Resource.Id.undolastbutton);
             View emptytext = FindViewById(Resource.Id.emptyfoodlog);
             ExpandableListView mExpandable = FindViewById<ExpandableListView>(Resource.Id.expandablelistfoodlog);
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+
+            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
+            SupportActionBar.Title = GetString(Resource.String.food_log);
+            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_arrow_back_white_24dp);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
             mExpandable.EmptyView = emptytext;
             mExpandable.SetGroupIndicator(null);       
-            SetActionBar(toolbar);
-            ActionBar.Title = "Food log";
 
             var adapter = new FoodListAdapter(this, MainActivity.foodsdb.datalist, false);
             mExpandable.SetAdapter(adapter);
@@ -61,6 +66,16 @@ namespace android2
             MainActivity.foodsdb.UpdateDatabase();
         }
 
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    OnBackPressed();
+                    return true;
+            }
+            return base.OnOptionsItemSelected(item);
+        }
 
     }
 }
