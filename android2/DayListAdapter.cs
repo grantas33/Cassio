@@ -17,11 +17,13 @@ namespace android2
     {
         readonly Activity context;
         protected List<Day> datalist;
+        private List<Day> filteredlist;
 
         public DayListAdapter(Activity newContext, List<Day> newList) : base()
 		{
             context = newContext;
             datalist = newList;
+            filteredlist = datalist.GroupBy(nn => nn.Date.Year ^ nn.Date.Month).Select(group => group.FirstOrDefault()).ToList();  // atrenka skirtingas dienas pagal metus ir menesi
         }
 
         public override int GroupCount
@@ -29,7 +31,7 @@ namespace android2
             get
             {
                 if (datalist.Count == 0) return 0;
-                else return datalist.Select(nn => string.Format("{0}{1}", nn.Date.Year, nn.Date.Month)).Distinct().Count();                 
+                else return datalist.Select(nn => nn.Date.Year ^ nn.Date.Month).Distinct().Count();                 
             }
         }
 
@@ -50,20 +52,20 @@ namespace android2
 
         public override int GetChildrenCount(int groupPosition)
         {
-            string text = string.Format("{0}-{1}", datalist[groupPosition].Date.Year, datalist[groupPosition].Date.Month);
+            string text = string.Format("{0}-{1}", filteredlist[groupPosition].Date.Year, filteredlist[groupPosition].Date.Month);
             var results = datalist.Where(nn => string.Format("{0}-{1}", nn.Date.Year, nn.Date.Month) == text);
             return results.Count();
         }
 
         public override View GetChildView(int groupPosition, int childPosition, bool isLastChild, View convertView, ViewGroup parent)
         {
-           
+            
             View row = convertView;
             if (row == null)
             {
                 row = context.LayoutInflater.Inflate(Resource.Layout.DayInfoChild, null);
             }
-            string text = string.Format("{0}-{1}", datalist[groupPosition].Date.Year, datalist[groupPosition].Date.Month);
+            string text = string.Format("{0}-{1}", filteredlist[groupPosition].Date.Year, filteredlist[groupPosition].Date.Month);
             var results = datalist.Where(nn => string.Format("{0}-{1}", nn.Date.Year, nn.Date.Month) == text).ToList();
 
             row.FindViewById<TextView>(Resource.Id.savedrealdate).Text = results[childPosition].Date.ToShortDateString();
@@ -85,7 +87,7 @@ namespace android2
 
         public override View GetGroupView(int groupPosition, bool isExpanded, View convertView, ViewGroup parent)
         {
-            var item = datalist[groupPosition];
+            var item = filteredlist[groupPosition];
             View view = convertView;
             if (view == null)
             {
@@ -104,7 +106,7 @@ namespace android2
 
             view.FindViewById<TextView>(Resource.Id.saveddatetime).Text = string.Format("{0}-{1}", item.Date.Year, item.Date.Month);                     //date
 
-            string text = string.Format("{0}-{1}", datalist[groupPosition].Date.Year, datalist[groupPosition].Date.Month);
+            string text = string.Format("{0}-{1}", filteredlist[groupPosition].Date.Year, filteredlist[groupPosition].Date.Month);
             var results = datalist.Where(nn => string.Format("{0}-{1}", nn.Date.Year, nn.Date.Month) == text);
             view.FindViewById<TextView>(Resource.Id.savedaveragecalories).Text = (results.Select(mm => mm.Calories).Sum() / results.Count()).ToString();  //average calories
 
