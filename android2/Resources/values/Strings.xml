@@ -5,4 +5,9 @@
   <string name="CreateFoodDialogTitle">Create your own food</string>
   <string name="Cancel">Cancel</string>
   <string name="Add">Add</string>
+  <string name="choose_food">Choose food</string>
+  <string name="create_food">Create food</string>
+  <string name="food_log">Food log</string>
+  <string name="daily_view">Daily view</string>
+  <string name="save_clear">Save and clear data</string>
 </resources>

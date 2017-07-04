@@ -10,6 +10,7 @@ namespace android2
         public FragmentAdapter(Android.Support.V4.App.FragmentManager fm)
             : base(fm)
         {
+
         }
 
         public override int Count

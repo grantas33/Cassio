@@ -1,45 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:oxy="http://oxyplot.codeplex.com"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+  <LinearLayout
+      xmlns:oxy="http://oxyplot.codeplex.com"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
     <OxyPlot.Xamarin.Android.PlotView
-    android:id="@+id/plot_view"
-    android:layout_width="match_parent"
-    android:layout_height="150dp"/>
+        android:background="@color/primary"
+        android:id="@+id/plot_view"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:background="#4CAF50">
-        <TextView
-            android:text="Calories:"
-            android:fontFamily="sans-serif-thin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:textColor="#E8F5E9"
-            android:id="@+id/textView1"
-            android:textSize="34sp" />
-        <TextView
-            android:text="0"
-            android:fontFamily="sans-serif-light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/caloriestxt"
-            android:textSize="112sp"
-            android:textColor="#E8F5E9"
-            android:layout_gravity="center_horizontal"
-            android:typeface="normal"
-            android:textStyle="normal"
-            android:maxLength="5" />
+        android:background="@color/primary">
+      <TextView
+          android:text="Calories:"
+          android:fontFamily="sans-serif-thin"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingLeft="16dp"
+          android:textColor="#E8F5E9"
+          android:id="@+id/textView1"
+          android:textSize="34sp" />
+      <TextView
+          android:text="0"
+          android:fontFamily="sans-serif-light"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/caloriestxt"
+          android:textSize="112sp"
+          android:textColor="#E8F5E9"
+          android:layout_gravity="center_horizontal"
+          android:typeface="normal"
+          android:textStyle="normal"
+          android:maxLength="5" />
     </LinearLayout>
-  
     <Button
         android:text="Choose food"
         android:layout_width="match_parent"
@@ -66,11 +70,23 @@
         android:layout_weight="1"
         android:gravity="center|bottom"
         android:orientation="vertical">
-        <Button
-            android:text="Save and clear data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/clearbutton"
-            android:layout_gravity="bottom" />
+      <Button
+          android:text="Save and clear data"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/clearbutton"
+          android:layout_gravity="bottom" />
     </LinearLayout>
-</LinearLayout>
+    
+  </LinearLayout>
+  <android.support.design.widget.FloatingActionButton
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:background="@color/accent"
+    app:backgroundTint="@color/accent"
+        android:src="@drawable/ic_add_white_18dp"
+        android:layout_margin="16dp" />
+</FrameLayout>

@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--For all properties see: http://developer.android.com/guide/topics/resources/menu-resource.html-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <group>
+    <item
+        android:id="@+id/choose_food"
+        android:icon="@drawable/Icon"
+        android:title="@string/choose_food" />
+    <item
+        android:id="@+id/create_food"
+        android:icon="@drawable/icon"
+        android:title="@string/create_food" />
+    <item
+      android:id="@+id/food_log"
+      android:icon="@drawable/icon"
+      android:title="@string/food_log" />
+    <item
+      android:id="@+id/daily_view"
+      android:icon="@drawable/icon"
+      android:title="@string/daily_view" />
+    <item
+     android:id="@+id/save_clear"
+     android:icon="@drawable/icon"
+     android:title="@string/save_clear" />
+  </group>
+
+  <!--
+  <item android:title="History">
+    <menu>
+      <item
+          android:id="@+id/nav_sub_1"
+          android:icon="@drawable/icon"
+          android:title="My sub item 1" />
+      <item
+          android:id="@+id/nav_sub_2"
+          android:icon="@drawable/icon"
+          android:title="My sub item 2" />
+    </menu>
+  </item>
+  -->
+</menu>
+
+<!-- Code to implement into Activity:
+
+public override bool OnCreateOptionsMenu(IMenu menu)
+{
+  //change main_compat_menu
+	MenuInflater.Inflate(Resource.Menu.menu1, menu);
+	return base.OnCreateOptionsMenu(menu);
+}
+
+
+public override bool OnOptionsItemSelected(IMenuItem item)
+{
+	switch (item.ItemId) {
+	case Resource.Id.action_edit:
+		Toast.MakeText (this, "You pressed edit action!", ToastLength.Short).Show ();
+		break;
+	case Resource.Id.action_save:
+		Toast.MakeText (this, "You pressed save action!", ToastLength.Short).Show ();
+		break;
+	}
+	return base.OnOptionsItemSelected(item);
+}
+
+-->
