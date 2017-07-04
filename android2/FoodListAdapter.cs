@@ -68,9 +68,9 @@ namespace android2
                 row = Context.LayoutInflater.Inflate(Resource.Layout.FoodInfoChild, null);
             }
 
-            row.FindViewById<TextView>(Resource.Id.foodinfocarbs).Text = string.Format("Carbohydrates: {0} g", item.Carbohydrates * item.Multiplier);
-            row.FindViewById<TextView>(Resource.Id.foodinfoprotein).Text = string.Format("Protein: {0} g", item.Protein * item.Multiplier);
-            row.FindViewById<TextView>(Resource.Id.foodinfofat).Text = string.Format("Fat: {0} g", item.Fat * item.Multiplier);
+            row.FindViewById<TextView>(Resource.Id.foodinfocarbs).Text = string.Format("Carbohydrates: {0} g", item.Carbohydrates/100 * item.Multiplier * item.Grams);
+            row.FindViewById<TextView>(Resource.Id.foodinfoprotein).Text = string.Format("Protein: {0} g", item.Protein/100 * item.Multiplier * item.Grams);
+            row.FindViewById<TextView>(Resource.Id.foodinfofat).Text = string.Format("Fat: {0} g", item.Fat/100 * item.Multiplier * item.Grams);
             row.FindViewById<PlotView>(Resource.Id.foodinfo_plot_view).Model = CreatePlotModel(item);
            
 
