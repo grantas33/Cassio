@@ -78,6 +78,7 @@ namespace android2
 
                 foodsdb.ClearAll();
                 foodsdb.UpdateDatabase();
+                UpdateChart();
                 //toast
                 if (calories.Text != "0")
                 {
@@ -118,9 +119,9 @@ namespace android2
         protected void NavDrawerItem_Select(object sender, NavigationItemSelectedEventArgs e)
         {
             Intent intent = null;
-            LinearLayout mainLayout;
-            LayoutInflater inflater = null;
-            View layout = null;
+           // LinearLayout mainLayout;
+           // LayoutInflater inflater = null;
+           // View layout = null;
             e.MenuItem.SetChecked(false);
             switch (e.MenuItem.ItemId)
             {
@@ -174,35 +175,58 @@ namespace android2
             TextView calories = FindViewById<TextView>(Resource.Id.caloriestxt);
             //caloriekeeper = localCalorie.GetString("cal", "0");
             FloatingActionButton fabButt = FindViewById<FloatingActionButton>(Resource.Id.fab);
-            Button logbutt = FindViewById<Button>(Resource.Id.logbutton);
-            Button gridbutt = FindViewById<Button>(Resource.Id.gridbutton);
-            Button clearbutt = FindViewById<Button>(Resource.Id.clearbutton);
-            Button dailybutt = FindViewById<Button>(Resource.Id.dailyviewbutton);
-            Button manualbutt = FindViewById<Button>(Resource.Id.manualbutton);
+          //  Button logbutt = FindViewById<Button>(Resource.Id.logbutton);
+           // Button gridbutt = FindViewById<Button>(Resource.Id.gridbutton);
+          //  Button clearbutt = FindViewById<Button>(Resource.Id.clearbutton);
+          //  Button dailybutt = FindViewById<Button>(Resource.Id.dailyviewbutton);
+          //  Button manualbutt = FindViewById<Button>(Resource.Id.manualbutton);
 
             fabButt.Click += ChooseFoodButton_Click;
-            logbutt.Click += FoodLogButton_Click;
-            gridbutt.Click += ChooseFoodButton_Click;
-            clearbutt.Click += SaveAndClearButton_Click;
-            dailybutt.Click += DailyViewButton_Click;
-            manualbutt.Click += CreateFoodButton_Click;
+           // logbutt.Click += FoodLogButton_Click;
+          //  gridbutt.Click += ChooseFoodButton_Click;
+          //  clearbutt.Click += SaveAndClearButton_Click;
+           // dailybutt.Click += DailyViewButton_Click;
+          //  manualbutt.Click += CreateFoodButton_Click;
         }
 
         private void UpdateChart()
         {
+            LinearLayout chartarea = FindViewById<LinearLayout>(Resource.Id.chartarea);
+            if(foodsdb.datalist.Count == 0)
+            {
+                chartarea.Visibility = ViewStates.Gone;
+            }
+            else
+            {
+                chartarea.Visibility = ViewStates.Visible;
+            }
             PlotView view = FindViewById<PlotView>(Resource.Id.plot_view);
+            double total = foodsdb.GetFat() + foodsdb.GetProtein() + foodsdb.GetCarbohydrates();
+            FindViewById<TextView>(Resource.Id.maincarbohydrates).Text = string.Format("Carbohydrates: {0}%, {1}g", Math.Round(foodsdb.GetCarbohydrates() / total * 100), foodsdb.GetCarbohydrates());
+           // FindViewById<TextView>(Resource.Id.maincarbohydrates).LayoutParameters.Width = (int)(foodsdb.GetCarbohydrates() / total * 100);
+
+            FindViewById<TextView>(Resource.Id.mainprotein).Text = string.Format("Protein: {0}%, {1}g", Math.Round(foodsdb.GetProtein() / total * 100), foodsdb.GetProtein());
+            //FindViewById<TextView>(Resource.Id.mainprotein).LayoutParameters.Width = (int)(foodsdb.GetProtein() / total * 100);
+
+            FindViewById<TextView>(Resource.Id.mainfat).Text = string.Format("Fat: {0}%, {1}g", Math.Round(foodsdb.GetFat() / total * 100), foodsdb.GetFat());
+           // FindViewById<TextView>(Resource.Id.mainfat).LayoutParameters.Width = (int)(foodsdb.GetFat() / total * 100);
+
             view.Model = CreatePlotModel();
         }
 
         private PlotModel CreatePlotModel()
         {
-            var plotModel = new PlotModel { Title = "Nutrients", TitleColor = OxyColor.FromRgb(255, 255, 255) };
-            dynamic series = new PieSeries { StrokeThickness = 2.0, InsideLabelPosition = 0.8, AngleSpan = 360, StartAngle = 0, TextColor = OxyColor.FromRgb(255, 255, 255) };
-            series.Slices.Add(new PieSlice("Fat", foodsdb.GetFat()) { IsExploded = false, Fill = OxyColors.PaleVioletRed });
-            series.Slices.Add(new PieSlice("Protein", foodsdb.GetProtein()) { IsExploded = true});
-            series.Slices.Add(new PieSlice("Carbohydrates", foodsdb.GetCarbohydrates()) { IsExploded = true });
+            var plotModel = new PlotModel();
+            var series = new PieSeries(); // { StrokeThickness = 2.0, InsideLabelPosition = 0.8, AngleSpan = 360, StartAngle = 0, TextColor = OxyColor.FromRgb(255, 255, 255) };
+            series.Slices.Add(new PieSlice("", foodsdb.GetFat()) { IsExploded = false, Fill = OxyColor.FromRgb(255, 68, 68) });
+            series.Slices.Add(new PieSlice("", foodsdb.GetProtein()) { IsExploded = true, Fill = OxyColor.FromRgb(153, 204, 0) });
+            series.Slices.Add(new PieSlice("", foodsdb.GetCarbohydrates()) { IsExploded = true, Fill = OxyColor.FromRgb(0, 153, 204) });
+            series.OutsideLabelFormat = "";
+            series.TickHorizontalLength = 0.00;
+            series.TickRadialLength = 0.00;
 
             plotModel.Series.Add(series);
+          
 
             return plotModel;
         }
